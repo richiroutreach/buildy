@@ -1,0 +1,9 @@
+<!-- @START _columns_1.html -->
+<div class="large-12 columns clearfix">
+	{{ content_for_notifications }}
+
+	<div class="content-{{ request.template  | replace: '_', '-' }}">
+    		{% yield %}
+  	</div> <!-- .content-{{ request.template  | replace: '_', '-' }} -->
+</div> <!-- .large-12 -->
+<!-- @END _columns_1.html -->

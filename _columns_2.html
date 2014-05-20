@@ -1,0 +1,17 @@
+<!-- @START _columns_2.html -->
+<div class="large-9 columns left-column">
+	{{ content_for_notifications }}
+
+	<div class="content-{{ request.template  | replace: '_', '-' }}">
+		{% yield %}
+	</div> <!-- .content-{{ request.template  | replace: '_', '-' }} -->
+</div> <!-- .left-column -->
+
+<div class="large-3 columns right-column">
+	{% if request.logged_in? %}
+		{% include "supporter_nav" %}
+	{% else %}
+		{% include "non_supporter_nav" %}
+	{% endif %}
+</div> <!-- .right-column -->
+<!-- @END _columns_2.html -->

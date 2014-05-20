@@ -1,0 +1,7 @@
+<!-- @START _page_byline.html -->
+{% include "translation_strings" %}
+<div class="byline">
+	{{  t-posted }} {{ page.author.published_name_linked }} <span class="pc">{{ page.author.capital_amount_format }}</span> on {{ page.published_at | date: '%B %d, %Y' }}
+	{% if site.has_rule_page? and request.logged_in? %}&middot; <a href="{{ page.flag_url }}" class="flag">Flag</a>{% endif %}
+</div> <!-- .byline -->
+<!-- @END _page_byline.html -->

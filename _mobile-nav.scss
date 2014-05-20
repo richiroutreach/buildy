@@ -1,0 +1,40 @@
+@mixin mobile-nav {
+  background-color: black;
+  height: 100%;
+  width: 16em;
+  position: absolute;
+  top: 0;
+  font-size: 15px;
+  left: -16em;
+  margin: 0;
+  padding: 0;
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  &> ul li {
+    list-style: none;
+    border-bottom: 1px solid lighten($theme-color-3, 15);
+    &.active {
+      background: #313131;
+      a {
+        color: $theme-color-4;
+      }
+    }
+  }
+  .sub {
+    display: none;
+    padding-left: 20px;
+    li {
+      border: none;
+    }
+  }
+  a {
+    font-family: $control-font;
+    text-transform: uppercase;
+    color: $theme-color-4;
+    line-height: 1.5em;
+    padding: 1em 10px 1em 20px;
+    display: block;
+  }
+}

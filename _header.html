@@ -1,0 +1,23 @@
+<!-- @START _header.html -->
+<div class="large-12 columns">
+	{% if site.has_meta_image? %}
+		<div class="site-logo">
+			<header><a href="/"><img src="{{ site.meta_image_url }}"></a></header>
+		</div>
+	{% elsif site.has_header_image? %}
+		<div class="header-image-wrap">
+			<img src="{{ site.header_image_url_1026 }}" class="header-image" border="0" />
+		</div>
+	{% else %}
+		<div class="site-name">
+			<header><h1 class="title"><a href="/">{{ site.long_name }}</a></h1></header>
+		</div>
+	{% endif %}
+</div> <!-- .large-12 -->
+
+{% if page.features_count > 0 %}
+	<div class="large-12 columns features">
+		{% include "features" %}
+	</div> <!-- .features -->
+{% endif %}
+<!-- @END _header.html -->

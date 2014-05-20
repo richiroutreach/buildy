@@ -1,0 +1,369 @@
+<!-- @START pages_show_donation_wide.html -->
+{% include "breadcrumbs" %}
+
+<div id="content">
+	<div class="row">
+		<div class="large-6 columns">
+			{% form_for donation autocomplete:off %}
+				<div class="form-wrap">
+					<div class="form">
+						<div class="form-errors">
+							{% error_messages_for donation %}
+						</div>
+
+						{% if page.donation.has_merchant_account? == false %}
+							<div>
+								<span class="red"><strong>No bank account:</strong> This page will not work until you add a bank account</span>
+							</div>
+						{% elsif page.donation.merchant_account.is_test_mode? %}
+							<div>
+								<span class="red"><strong>Testing mode:</strong> Transactions will not be processed. Use your regular credit card to test, you will not actually be charged.</span>
+							</div>
+						{% endif %}
+
+						<div class="row">
+							<div class="large-12 columns">
+								<div class="form-progress-indicator">
+									<ul class="progress-indicator-stages clearfix">
+										<li class="progress-indicator-stage stage-1 active"><span class="stage-label">Amount</span><span class="stage-count"><span class="stage-count-inner">1</span></span></li>
+										<li class="progress-indicator-stage stage-2"><span class="stage-label">Your Info</span><span class="stage-count"><span class="stage-count-inner">2</span></span></li>
+										<li class="progress-indicator-stage stage-3"><span class="stage-label">Payment</span><span class="stage-count"><span class="stage-count-inner">3</span></span></li>
+									</ul>
+								</div>
+							</div> <!-- .large-12 -->
+						</div> <!-- .row -->
+
+						<div class="progress-stages">
+							<div class="progress-stage stage-1 active" data-stageID="1">
+								{% if request.current_order %}
+									{% for item in request.current_order.items %}
+										{% if item.num_time_periods and item.time_period_type %}
+											{{ item.quantity }} {{ item.name }} @ {{ item.amount }} - billed automatically every {{ item.num_time_periods }} {{item.time_period_type }}
+										{% else %}
+											{{ item.quantity }} {{ item.name }} @ {{ item.amount }}
+										{% endif %}
+									{% endfor %}
+									
+									<a href="{{ page.donation.clear_order_url }}">Clear order</a>
+								{% elsif page.donation.donation_frequency == "monthly" %}
+									{% if page.donation.amount_in_cents != 0 %}
+										<div class="row">
+											<div class="large-12 columns ">Your credit card will be billed automatically every month</div>
+										</div> <!-- .row -->
+
+										<h4 class="">{{ page.donation.amount_formatted }}</h4>
+									{% else %}
+										<div class="row">
+											<div class="large-12 columns">Your credit card will be billed automatically every month</div>
+										</div> <!-- .row -->
+			
+										<div class="radio-inline">{{ page.donation.form_amount_options }}</div>
+									{% endif %}
+								{% else %}
+									{% if page.donation.max_installments > 1 %}
+										<label for="num_installments" class="">I want to pay the following in {% collection_select "num_installments", page.donation.installment_collection, class:"select" %} installments</label>
+									{% endif %}
+
+									{% if page.donation.amount_in_cents != 0 %}
+										<h4 class="">{{ page.donation.amount_formatted }}</h4>
+									{% else %}
+										<div class="radio-inline ">{{ page.donation.form_amount_options }}</div>
+									{% endif %}
+								{% endif %}
+
+								<div class="padtop"><span class="progress-stage-button-next button">Continue</span></div>
+							</div> <!-- .progress-stage-1 -->
+
+							<div class="progress-stage stage-2 hidden" data-stageID="2">
+								<div>
+									<div class="row">
+										<div class="large-6 columns">{% text_field "first_name", class:"text", placeholder:"First name" %}</div>
+										<div class="large-6 columns">{% text_field "last_name", class:"text", placeholder:"Last name" %}</div>
+									</div> <!-- .row -->
+
+									<div class="row">
+										<div class="large-12 columns">
+											{% collection_select "billing_address.country_code", page.donation.countries, "code", "name", class:"select", placeholder:"Country" %}
+										</div>
+									</div> <!-- .row -->
+
+									<div class="row">
+										<div class="large-12 columns">
+											{% text_field "billing_address.address1", class:"text", placeholder:"Address 1" %}
+											{% text_field "billing_address.address2", class:"text", placeholder:"Address 2" %}
+											{% text_field "billing_address.address3", class:"text not-us-or-canada hide", placeholder:"Address 3" %}
+										</div>
+									</div> <!-- .row -->
+
+									<div class="row">
+										<div class="large-4 columns">
+											{% text_field "billing_address.city", class:"text", placeholder:"City" %}
+										</div>
+
+										<div class="large-4 columns us-or-canada us-only hide">
+											{% collection_select "billing_address.state", page.donation.us_states, "code", "name", class:"select", placeholder:"State" %}
+										</div>
+
+										<div class="large-4 columns us-or-canada canada-only hide">
+											{% text_field "billing_address.state", class:"text", placeholder:"State" %}
+										</div>
+										
+										<div class="large-4 columns">
+											{% text_field "billing_address.zip", class:"text", placeholder:"Postal code" %}
+										</div>
+									</div> <!-- .row -->
+
+									<div class="row">
+										<div class="large-6 columns">
+											{% email_field "email", class:"text", placeholder:"Email" %}
+										</div>
+										
+										<div class="large-6 columns">
+											{% phone_field "billing_address.phone_number", class:"text", placeholder:"Phone" %}
+										</div>
+									</div> <!-- .row -->
+
+									<div class="row">
+										<div class="large-12 columns">
+											<label class="checkbox" for="donation_email_opt_in">{% check_box "email_opt_in" %} Send email updates</label>
+										</div>
+									</div> <!-- .row -->
+
+									{% if page.donation.merchant_account.is_employer_and_occupation_required? %}
+										<h4 class="padtop">Employer Info</h4>
+										
+										<div class="row">
+											<div class="large-6 columns">
+												{% text_field "employer", class:"text", placeholder:"Employer" %}
+											</div>
+
+											<div class="large-6 columns">
+												{% text_field "occupation", class:"text", placeholder:"Occupation" %}
+											</div>
+										</div> <!-- .row -->
+
+										{% if page.donation.merchant_account.is_employer_address_required? %}
+											<div class="row">
+												<div class="large-12 columns">
+													{% collection_select "work_address.country_code", page.donation.countries, "code", "name", class:"select", placeholder:"Employer country" %}
+												</div>
+											</div> <!-- .row -->
+
+											<div class="row">
+												<div class="large-12 columns">
+													{% text_field "work_address.address1", class:"text", placeholder:"Employer address 1" %}
+													{% text_field "work_address.address2", class:"text", placeholder:"Employer address 2" %}
+													{% text_field "work_address.address3", class:"text work-not-us-or-canada hide", placeholder:"Employer address 3" %}
+												</div>
+											</div> <!-- .row -->
+
+											<div class="row">
+												<div class="large-4 columns">
+													{% text_field "work_address.city", class:"text", placeholder:"City" %}
+												</div>
+											
+												<div class="large-4 columns work-us-or-canada">
+													{% text_field "work_address.state", class:"text", placeholder:"State" %}
+												</div>
+											
+												<div class="large-4 columns">
+													{% text_field "work_address.zip", class:"text", placeholder:"Postal code" %}
+												</div>
+											</div> <!-- .row -->
+										{% elsif page.donation.merchant_account.is_employer_city_required? %}
+											<div class="row">
+												<div class="large-12 columns">
+													{% collection_select "work_address.country_code", page.donation.countries, "code", "name", class:"select", placeholder:"Employer country" %}
+												</div>
+											</div> <!-- .row -->
+											
+											<div class="row">
+												<div class="large-4 columns">
+													{% text_field "work_address.city", class:"text", placeholder:"City" %}
+												</div>
+												
+												<div class="large-4 columns work-us-or-canada hide">
+													{% text_field "work_address.state", class:"text", placeholder:"State" %}
+												</div>
+												
+												<div class="large-4 columns">
+													{% text_field "work_address.zip", class:"text", placeholder:"Postal code" %}
+												</div>
+											</div> <!-- .row -->
+										{% endif %}
+
+										<div class="row">
+											<div class="large-12 columns">
+												<div>Law requires we ask for your employer and occupation. If you don't have an employer or are retired, put N/A, and if you are self-employed put "self-employed" in employer and describe your occupation.</div>
+											</div>
+										</div> <!-- .row -->
+
+										{% if page.donation.merchant_account.is_corporate_contribution_required? %}
+											<div class="row">
+												<div class="large-12 columns input-checkbox">
+													<label class="checkbox" for="donation_is_corporate_contribution">{% check_box "is_corporate_contribution", class:"checkbox" %} This is a contribution from a business.</label>
+												</div>
+											</div> <!-- .row -->
+										{% endif %}
+									{% endif %}
+
+									{% for cf in custom_fields.donation %}
+										{% assign custom_field = cf[1] %}
+										{% assign custom_field_id = 'custom_values.' | append: custom_field.slug %}
+
+										<div class="row">
+											<div class="large-12 columns">
+												{% if custom_field.is_text? or custom_field.is_number? %}
+													{% text_field custom_field_id, class:"text", placeholder:custom_field.name %}
+												{% elsif custom_field.is_boolean? %}
+													<label class="checkbox" for="donation_custom_values_{{ custom_field.slug }}_custom">{% check_box custom_field_id, class:"checkbox" %} {{ custom_field.name }}</label>
+												{% elsif custom_field.is_multiple_choice? %}
+													<label for="donation_custom_values_{{ custom_field.slug }}_custom">{{ custom_field.name }}</label>
+													{% collection_select custom_field_id, custom_fields.donation[custom_field.slug].multiple_choice_options, class:"select" %}
+												{% endif %}
+											</div>
+										</div> <!-- .row -->
+									{% endfor %}
+								</div> <!-- .row -->
+								
+								<div>
+									<span class="progress-stage-button-next button">Continue</span>
+									<a class="progress-stage-button-prev button" href="#">Back</a>
+								</div>
+							</div><!-- .progress-stage-2 -->
+
+							<div class="progress-stage stage-3 hidden" data-stageID="3">
+								{% if page.donation.has_merchant_account? and page.donation.merchant_account.is_paypal_express? == false %}
+									<div class="row">
+										<div class="large-8 columns">
+											{% text_field "card_number", class:"text", placeholder:"Credit card number" %}
+										</div>
+										
+										<div class="large-4 columns cc">{{ page.donation.merchant_account.accepted_card_icons }}</div>
+									</div> <!-- .row -->
+
+									<div class="row">
+										<div class="large-12 columns"><label for="donation_card_expires_on">Expires</label>{{ page.donation.form_card_expires_on }}</div>
+									</div> <!-- .row -->
+
+									<div class="row">
+										<div class="large-8 columns">
+											{% text_field "card_verification", class:"text", placeholder:"Security code" %}
+										</div>
+									</div> <!-- .row -->
+								{% endif %}
+
+								<div class="row">
+									<div class="large-12 columns">
+										{% if page.donation.merchant_account.has_contribution_rules? %}
+											<label for="is_confirmation_text"><strong>Contribution rules</strong></label>
+
+											{{ page.donation.merchant_account.contribution_rules }}
+
+											<label for="donation_is_confirmed" class="checkbox padtop">{% check_box "is_confirmed", class:"checkbox" %} I confirm that the above statements are true and accurate.</label>
+										{% endif %}
+
+										{% if page.donation.merchant_account.is_de? %}
+											<label for="donation_is_de_confirmed" class="checkbox">{% check_box "is_de_confirmed", class:"checkbox" %}
+												I agree to the Democracy Engine
+												<a href="http://www.democracyengine.com/subscriber_tos" target="_new">Terms of Service</a>
+												and
+												<a href="http://www.democracyengine.com/subscriber_privacy_policy" target="_new">Privacy Policy</a>. You will not receive any emails from them, they just deliver your donation to us.
+											</label>
+										{% endif %}
+
+										{% if site.ask_to_publish_to_stream? %}
+											<label for="donation_is_private" class="checkbox">{% check_box "is_private", class:"checkbox" %} Don't publish my donation on the website.</label>
+										{% endif %}
+
+										{% if page.donation.has_merchant_account? and page.donation.merchant_account.is_paypal_express? %}
+											<div>
+												{% submit_tag "Continue to Paypal", class:"success-button button success" %}
+												<div>{{ page.donation.merchant_account.accepted_card_icons }}</div>
+												<a class="progress-stage-button-prev" href="#">Back</a>
+											</div>
+										{% else %}
+											<div class="row tax-info">
+												{% if page.donation.merchant_account.is_taxable? %}
+													<div class="large-12 columns">Contributions are <i>not</i> tax deductible.</div>
+												{% else %}
+													<div class="large-12 columns textnarrow">Contributions are tax deductible.</div>
+												{% endif %}
+											</div> <!-- .row -->
+
+											<div>
+												{% submit_tag "Process Donation", class:"submit-button button alert submit" %}
+												<a class="progress-stage-button-prev button" href="#">Back</a>
+											</div>
+										{% endif %}
+									</div> <!-- .large-12 -->
+								</div> <!-- .row -->
+							</div> <!-- .progress-stage-3 -->
+						</div> <!-- .progress-stages -->
+					</div> <!-- .form -->
+				</div> <!-- .form-wrap -->
+			{% endform_for %}
+		</div> <!-- .large-6 -->
+
+		<div class="large-1 columns"></div>
+
+		<div class="large-6 columns">
+			{% if page.headline.size > 0 %}
+				<h3 class="headline">{{ page.headline }}</h3>
+			{% endif %}
+
+			{% assign thermo_width = 48.61878453038674 %}
+
+			{% if page.donation.has_amount_goal? %}
+				<div class="clearfix">
+					<div class="progress">
+						<div class="bar bar-success" style="width: {{ page.donation.percent_of_amount_goal | times:100 }}%;">
+							{% if page.donations_count < 1 %}
+								<div class="bar-text">Just started</div>
+							{% else %}
+								<div class="bar-text">{{ page.donations_amount_format }} raised</div>
+							{% endif %}
+						</div>
+					</div>
+			
+					<div class="bar-goal">Goal: {{ page.donation.amount_goal_format }}</div>
+				</div>
+			{% elsif page.donation.has_donor_goal? %}
+				<div class="clearfix">
+					<div class="progress" style="width: {{ thermo_width }}%;">
+						<div class="bar bar-success" style="width: {{ page.donation.percent_of_donor_goal | times:100 }}%;">
+							{% if page.donations_count < 2 %}
+								<div class="bar-text">Just started</div>
+							{% else %}
+								<div class="bar-text">{{ page.donations_count }} donors</div>
+							{% endif %}
+						</div>
+					</div>
+					
+					<div class="bar-goal">{{ page.donation.donor_goal }} donors</div>
+				</div>
+			{% endif %}
+
+			{% if page.donation.content.size > 0 %}
+				<div id="intro" class="intro">
+					{{ page.donation.content }}
+				</div>
+			{% endif %}
+
+			{% if page.show_social_slider? and page.public_activities_count > 0 %}
+				{% include "social_slider" %}
+			{% endif %}
+		</div> <!-- .large-5 -->
+	</div> <!-- .row -->
+
+	{% if page.tags_count > 0 %}
+		<div class="page-tags">
+			{% include "page_tags" with page %}
+		</div>
+	{% endif %}
+
+	{% if page.show_stream? %}
+		{% include "page_stream" %}
+	{% endif %}
+</div> <!-- #content -->
+<!-- @END pages_show_donation_wide.html -->

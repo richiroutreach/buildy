@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>{{ page_title }}</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link rel="stylesheet" href="theme.scss" type="text/css">
+	<link rel="stylesheet" href="tablet-and-desktop.scss" type="text/css" media="screen and (min-width: 768px)">
+
+	<!-- JavaScript Google font import for https -->
+	<script type="text/javascript">
+		WebFontConfig = {
+		google: { families: [ 'Ovo::latin', 'Crimson+Text:400,600,400italic,600italic:latin', 'Exo+2:100,400,700,400italic,700italic:latin',  'Source+Sans+Pro:200,400,700,400italic,700italic:latin', 'Tinos:400,700,400italic,700italic:latin' ] }
+		};
+		(function() {
+		var wf = document.createElement('script');
+		wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+		wf.type = 'text/javascript';
+		wf.async = 'true';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(wf, s);
+		})(); 
+	</script>
+
+	<!-- because ie8 ignores media queries, we need this -->
+	<!--[if IE 8]>
+		<link rel="stylesheet" href="tablet-and-desktop.scss" type="text/css">
+	<![endif]-->
+
+	<!--[if IE]>
+		<link rel="stylesheet" href="ie.scss" type="text/css">
+	<![endif]-->
+
+	{{ content_for_header }}
+
+	<!-- Font Awesome -->
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+	<script type="text/javascript" src="jquery.ui.effect.min.js"></script>
+	<script type="text/javascript" src="jquery.ui.effect-slide.min.js"></script>
+	<script type="text/javascript" src="presence.js"></script>
+
+	<!-- Modernizr -->
+	<script src="{{ theme['modernizr.js'] }}"></script>
+
+	<script type="text/javascript">
+		NB.appConfig.userIsLoggedIn = {{request.logged_in?}};
+	</script>
+</head>
+
+<body class="aware-theme v2-theme {{ page.page_class_name }} {% if page.is_homepage? == true %}homepage{% endif %} {% if site.has_header_image? %}has-header-image{% endif %} {% if site.has_background_image? %}has-background-image{% endif %} {% if page.features_count > 0 %}has-features{% endif %} {% if site.has_meta_image? %}has-logo{% endif %} js page-{{ request.template | replace: '_', '-' }}">
+	<div class="nav-wrap">
+		<div id="nav" class="row">
+			{% include "nav" %}
+		</div> <!-- #nav -->
+	</div> <!-- .nav-wrap -->
+
+	<div class="header-wrap">
+		<div id="header" class="row">
+			{% include "header" %}
+		</div> <!-- #header --> 
+	</div> <!-- .header-wrap -->
+
+	<div class="body-wrap">
+		<div id="body" class="row">
+			{% if request.is_sidebar? %}
+				{% include "columns_2" %}
+			{% else %}
+				{% include "columns_1" %}
+			{% endif %}			
+		</div> <!-- #body -->
+	</div> <!-- .body-wrap -->
+
+	<div class="footer-wrap">
+		<div id="footer" class="row">
+			{{ content_for_footer }}
+	
+			{% include "footer" %}
+		</div> <!-- #footer -->
+	</div> <!-- .footer-wrap -->
+
+	{% if site.has_background_image? %}
+		<!--[if lt IE 9]>
+			<script type="text/javascript" src="/javascripts/jquery.backstretch.min.js"></script>
+			<script type="text/javascript">
+				jQuery.backstretch("{{ site.background_image_url }}", {speed: 0});
+			</script>
+		<![endif]-->
+
+		<style>
+			body {
+				background: url('{{ site.background_image_url }}') no-repeat center center fixed;
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+			}
+		</style>
+	{% endif %}
+
+	<!-- Foundation -->
+	<script src="{{ theme['foundation.min.js'] }}"></script>
+
+	<script>
+		$(document).foundation();
+	</script>
+</body>
+</html>

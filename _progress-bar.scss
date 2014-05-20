@@ -1,0 +1,148 @@
+.progress {
+  position: relative;
+  float: left;
+  overflow: hidden;
+  height: 54px;
+  margin: 40px 0 30px 0;
+  background-color: $theme-color-12;
+  @include border-radius(2px);
+}
+
+.progress .bar {
+  width: 0;
+  height: 100%;
+  color: #fff;
+  float: left;
+  font-size: 12px;
+  text-align: right;
+  background-color: #9cb269; 
+  @include box-sizing(border-box);
+  @include transition(width 0.6s ease);
+}
+
+.progress-striped .bar {
+  background-color: #149bdf;
+  @include background-image( linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent) );
+  @include background-size(40px 40px);
+}
+
+.progress.active .bar {
+  animation: progress-bar-stripes 2s linear infinite;
+  -moz-animation: progress-bar-stripes 2s linear infinite;
+  -ms-animation: progress-bar-stripes 2s linear infinite;
+  -o-animation: progress-bar-stripes 2s linear infinite;
+  animation: progress-bar-stripes 2s linear infinite;
+}
+
+.progress-danger .bar,
+.progress .bar-danger {
+  background-color: #dd514c;
+}
+
+.progress-danger.progress-striped .bar,
+.progress-striped .bar-danger {
+  background-color: #ee5f5b;
+}
+
+.progress-success .bar,
+.progress .bar-success {
+  background-color: #9cb269;
+}
+
+.progress-success.progress-striped .bar,
+.progress-striped .bar-success {
+  background-color: #62c462;
+}
+
+.progress-info .bar,
+.progress .bar-info {
+  background-color: #4bb1cf;
+}
+
+.progress-info.progress-striped .bar,
+.progress-striped .bar-info {
+  background-color: #5bc0de;
+}
+
+.progress-warning .bar,
+.progress .bar-warning {
+  background-color: #faa732;
+  @include background-image( linear-gradient(top, #fbb450, #f89406) );
+}
+
+.progress-warning.progress-striped .bar,
+.progress-striped .bar-warning {
+  background-color: #fbb450;
+}
+
+.bar-text {
+  line-height: 52px;
+  font-size: 20px;
+  font-weight: 600;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  color: $theme-color-2;
+}
+
+.bar-goal {
+  position: relative;
+  width: 48.61878453038674%;
+  font-size: 20px;
+  line-height: 1.25em;
+  font-weight: 600;
+  display: table-cell;
+  vertical-align: middle;
+  height: 54px;
+  letter-spacing: -.4px;
+}
+
+.clearfix > .bar-goal {
+  top: 40px;
+  padding-left: 5.68181818182%;
+}
+
+@-webkit-keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+@-moz-keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+@-ms-keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+@-o-keyframes progress-bar-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 40px 0;
+  }
+}
+
+@keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}

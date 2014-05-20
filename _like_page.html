@@ -1,0 +1,31 @@
+<!-- @START _like_page.html -->
+<div class="sharetable row">
+	<div class="facebook-cell">
+		{% if request.sorta_logged_in? %}
+			<div class="large-5 columns hide-for-small">
+				<fb:like href="{{ page.full_url }}" show_faces="false" width="300" send="true" action="like" colorscheme="{{ site.facebook_colorscheme }}" ref="r{{ current_signup.id }}"></fb:like>
+			</div>
+			
+			<div class="hide-for-medium-up">
+				<fb:like href="{{ page.full_url }}" show_faces="false" width="200" send="false" action="like" colorscheme="{{ site.facebook_colorscheme }}" ref="r{{ current_signup.id }}"></fb:like>
+			</div>
+		{% else %}
+			<div class="large-5 columns hide-for-small">
+				<fb:like href="{{ page.full_url }}" show_faces="false" width="300" colorscheme="{{ site.facebook_colorscheme }}" send="true" action="like"></fb:like>
+			</div>
+
+			<div class="hide-for-medium-up">
+				<fb:like href="{{ page.full_url }}" show_faces="false" width="200" colorscheme="{{ site.facebook_colorscheme }}" send="false" action="like"></fb:like>
+			</div>
+		{% endif %}
+	</div>
+
+	<div class="twitter-cell large-4 columns">
+		<a href="http://twitter.com/share" class="twitter-share-button" data-count="none" data-text="{{ page.default_face_tweet_text }}" data-via="{{ site.broadcaster.twitter_login }}">Tweet</a>
+	</div>
+
+	<div class="g-plus-cell large-3 columns">
+		{{ page.google_plus_html }}
+	</div>
+</div>
+<!-- @END _like_page.html -->

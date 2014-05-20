@@ -1,0 +1,29 @@
+<!-- @START _footer.html -->
+<footer class="clearfix">
+	{% if site.footer_content.size > 0 %}
+		<div class="large-12 columns footer-text">{{ site.footer_content }}</div> <!-- .footer-text -->
+	{% endif %}
+
+	<div class="large-7 columns left-column">
+		{% if request.logged_in? %}
+			Hi <a href="{{ request.current_signup.settings_url }}">{{ request.current_signup.name_or_email }}</a>. View your
+			
+			{% if site.show_public_profiles? %}
+				<a href="{{ request.current_signup.profile_url }}">public profile</a>,
+			{% endif %}
+			
+			<a href="{{ request.current_signup.settings_url }}">account settings</a>, or <a href="{{ request.current_signup.logout_url }}">sign out</a>.
+		
+			{% if request.current_signup.is_admin? %}
+				<a href="{{ page.admin_edit_url }}" target="_blank">Edit This Page</a>.
+			{% endif %}
+		{% else %}
+			Sign in with <a href="{{ request.facebook_connect_url }}">Facebook</a>, <a href="{{ request.twitter_connect_url }}">Twitter</a> or <a href="/login">email</a>.
+		{% endif %}
+	</div> <!-- .left-column -->
+
+	<div class="large-5 columns right-column">
+		Created by <a href="http://www.richiroutreach.com" title="NationBuilder Architect">Richir Outreach</a>. Built on <a href="http://nationbuilder.com/">NationBuilder</a>
+	</div> <!-- .right-column -->
+</footer>
+<!-- @END _footer.html -->

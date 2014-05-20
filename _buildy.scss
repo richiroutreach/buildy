@@ -1,0 +1,230 @@
+/*
+	theme.scss - mobile first styles
+	Created by Richir Outreach with "Presence" as a base
+  	Buildy V0.1
+*/
+
+/*
+	--------------------------------------------------------------------------
+		Imports & Variables
+	--------------------------------------------------------------------------
+*/
+
+@import "settings";
+@import "foundation";
+
+
+/*
+	--------------------------------------------------------------------------
+		General Styles
+	--------------------------------------------------------------------------
+*/
+
+.button {
+
+	&.small {
+		padding: 0.5rem 1rem;
+	}
+
+	.fa {
+		padding-right: 0.5rem;
+	}
+}
+ 
+.hidden {
+	display: none;
+}
+
+.form-error {
+	color: red;
+}
+
+input[type="text"] {
+	&.error {
+		background-color: rgba(255, 0, 0, 0.25);
+	}
+}
+
+/*
+	--------------------------------------------------------------------------
+		Header
+	--------------------------------------------------------------------------
+*/
+ 
+
+ 
+ 
+/*
+	--------------------------------------------------------------------------
+		Navigation
+	--------------------------------------------------------------------------
+*/
+
+/*
+	--------------------------------------------------------------------------
+		Footer
+	--------------------------------------------------------------------------
+*/
+ 
+
+ 
+/*
+	--------------------------------------------------------------------------
+		Sidebar (_non_supporter_nav.html)
+	--------------------------------------------------------------------------
+*/
+
+.supporter-nav {
+	list-style-type: none;
+	margin: 0;
+
+	.button {
+		width: 100%;
+		padding: 1rem;
+	}
+}
+ 
+.right-column .email-signup {
+	.button {
+		width: 100%;
+	}
+}
+
+
+/*
+	--------------------------------------------------------------------------
+		Like Page (_like_page.html)
+	--------------------------------------------------------------------------
+*/
+
+.sharetable.row {
+	margin: 0.5rem 0;
+
+	.large-5.columns {
+		padding: 0;
+	}
+}
+
+
+/*
+	--------------------------------------------------------------------------
+		Donateion Page (pages_show_donation_wide.html)
+	--------------------------------------------------------------------------
+*/
+
+.form-progress-indicator {
+	ul {
+		list-style-type: none;
+		text-align: center;
+		margin: 1rem 0;
+
+		li {
+			display: inline-block;
+			width: 45px;
+			margin-right: 55px;
+			position: relative;
+
+			&.stage-1:after, &.stage-2:after {
+				content: " ";
+				width: 64px;
+				height: 0;
+				border-bottom: 9px solid $primary-color;
+				position: absolute;
+				top: 45px;
+				left: 43px;
+				z-index: 0;
+			}
+
+			&.stage-2 {
+				.stage-label {
+					left: -10px;
+				}
+			}
+
+			&.active {
+				.stage-count-inner {
+					background: darken($primary-color, 15);
+				}
+			}
+
+			.stage-label {
+				left: -2px;
+				font-size: 0.75rem;
+				font-weight: 600;
+				text-transform: uppercase;
+				position: relative;
+				white-space: nowrap;
+			}
+
+			.stage-count {
+				position: relative;
+				display: block;
+				color: #fff;
+				width: 45px;
+				height: 45px;
+				text-align: center;
+				background: $primary-color;
+				z-index: 5;
+				border-radius: 99px;
+	
+				.stage-count-inner {
+					width: 29px;
+					height: 29px;
+					left: 8px;
+					top: 8px;
+					line-height: 29.5px;
+					font-weight: 700;
+					display: block;
+					border-radius: 99px;
+					background: darken($primary-color, 10);
+					color: white;
+					position: relative;
+
+					&.icon-tick {
+						text-indent: -9999px;
+						cursor: pointer;
+
+						&::before {
+							color: #fff;
+							position: absolute;
+							width: 29px;
+							line-height: 31px;
+							z-index: 20;
+							opacity: 1;
+							text-align: center;
+							top: 0;
+							left: 0;
+							font-size: 1.25em;
+							cursor: pointer;
+							text-indent: 0;
+							content: '\2713';
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.page-pages-show-donation-wide {
+	.radio-inline {
+		input[type="radio"] {
+			display: none;
+		}
+
+		label.radio {
+			background-color: $primary-color;
+			color: #fff;
+			display: inline-block;
+			min-width: 80px;
+			padding: .625em 1em;
+			font-family: "Lato",Helvetica,sans-serif;
+			font-weight: bold;
+			font-size: 1.25em;
+			text-align: center;
+			margin: .3em .3em .3em 0;
+			cursor: pointer;
+			outline: none;	
+		}
+	}
+}

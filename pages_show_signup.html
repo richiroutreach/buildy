@@ -1,0 +1,163 @@
+<!-- @START pages_show_signup.html -->
+{% include "breadcrumbs" %}
+
+{% if page.headline.size > 0 %}
+	<h2 class="headline">{{ page.headline }}</h2>
+{% endif %}
+
+<div id="content">
+	{% if page.signup.content.size > 0 %}
+		<div id="intro" class="intro">
+			{{ page.signup.content }}
+		</div> <!-- .intro -->
+	{% endif %}
+
+	{% if page.show_social_slider? and page.public_activities_count > 0 %}
+		{% include "social_slider" %}
+	{% endif %}
+
+	<div class="form-wrap">
+		<div class="form">
+			{% form_for signup %}
+				{% if request.sorta_logged_in? %}
+					<h4>Hi {{ request.current_signup.name_or_email }}, thanks for joining!</h4>
+
+					{% if request.logged_in? == false %}
+						<div class="padbottommore">
+							<small>If you're not {{ request.current_signup.name_or_email }}, <a href="{{ request.current_signup.logout_url }}">click here to signup</a>.</small>
+						</div>
+					{% endif %}
+				{% endif %}
+
+				<div class="form-errors">{% error_messages_for signup %}</div>
+
+				{% if request.sorta_logged_in? == false or request.current_signup.has_name? == false %}
+					<div class="row">
+						<div class="large-6 columns">
+							<label for="signup_first_name">First Name</label>
+							{% text_field "first_name", class:"text" %}
+						</div> <!-- .large-6 columns -->
+
+						<div class="large-6 columns">
+							<label for="signup_last_name">Last Name</label>
+							{% text_field "last_name", class:"text" %}
+						</div> <!-- .large-6 columns -->
+					</div> <!-- .row -->
+				{% endif %}
+
+				{% if request.sorta_logged_in? == false or request.current_signup.has_mobile? == false %}
+					<div class="row">
+						<div class="large-6 columns">
+							<label for="signup_email">Email</label>
+							{% email_field "email", class:"text" %}
+						</div> <!-- .large-6 -->
+
+						{% if site.ask_for_mobiles? %}
+							<div class="large-6 columns">
+								<label for="signup_mobile_number">Mobile phone</label>
+								{% phone_field "mobile_number", class:"text" %}
+							</div> <!-- .large-6 -->
+						{% endif %}
+					</div> <!-- .row -->
+
+					<div class="row">
+						<div class="large-6 columns">
+							<label class="checkbox" for="signup_email_opt_in">{% check_box "email_opt_in", class:"checkbox" %} Send me email updates</label>
+						</div> <!-- large-6 -->
+
+						{% if site.ask_for_mobiles? %}
+							<div class="large-6 columns">
+								<label class="checkbox" for="signup_mobile_opt_in">{% check_box "mobile_opt_in", class:"checkbox" %} Send me text message updates</label>
+							</div> <!-- .large-6 -->
+						{% endif %}
+					</div>
+				{% endif %}
+
+				{% if page.signup.is_phone? %}
+					<div class="row">
+						<div class="large-12 columns">
+							<label for="signup_phone_number">Phone</label>
+							{% phone_field "phone_number", class:"text" %}
+						</div> <!-- .large-12 -->
+					</div> <!-- .row -->
+				{% endif %}
+
+				{% if page.signup.is_address? %}
+					{% if request.sorta_logged_in? == false or request.current_signup.has_full_address? == false %}
+						<div class="row">
+							<div class="large-12 columns">
+								<label for="signup_submitted_address">Address (Street, City, State, Postal code)</label>
+								{% text_field "submitted_address", class:"text" %}
+							</div> <!-- .large-12 -->
+						</div> <!-- .row -->
+				
+						<div class="row">
+							<div class="large-12 columns">
+								<label for="signup_country_code">Country</label>
+								{% collection_select "country_code", page.signup.countries, "code", "name", class:"select" %}
+							</div> <!-- .large-12 -->
+						</div> <!-- .row -->
+					{% endif %}
+				{% endif %}
+
+				{% if page.signup.has_optional_tags? %}
+					<div class="row">
+						<div class="large-12 columns">
+							<label for="signup_optional_tag">Choose one</label>
+							{% collection_select "optional_tag", page.signup.optional_tags, class:"select" %}
+						</div> <!-- .large-12 -->
+					</div> <!-- .row -->
+				{% endif %}
+
+				{% if page.signup.is_volunteers? and site.ask_for_volunteers? %}
+					{% if request.sorta_logged_in? == false or request.current_signup.is_volunteer == false %}
+						<div class="row">
+							<div class="large-12 columns">
+								<label class="checkbox" for="signup_is_volunteer">{% check_box "is_volunteer", class:"checkbox" %} I want to volunteer</label>
+							</div> <!-- .large-12 -->
+						</div> <!-- .row -->
+					{% endif %}
+				{% endif %}
+
+				<div class="row">
+					<div class="large-12 columns">
+						<label for="signup_activity_is_private" class="checkbox">{% check_box "activity_is_private", class:"checkbox" %} Don't publish this on the website</label>
+					</div> <!-- .large-12 -->
+				</div> <!-- .row -->
+
+				{% if page.signup.is_all_info_collected? == false %}
+					{% if request.sorta_logged_in? %}
+						{% submit_tag "Update info", class:"submit-button button alert submit" %}
+					{% else %}
+						{% submit_tag "Signup", class:"submit-button button alert submit" %}
+					{% endif %}
+				{% endif %}
+				<div class="form-submit"></div>
+			{% endform_for %}
+
+			{% if page.text_keyword_instructions.size > 0 %}
+				<div class="row padbottom padtopmore">
+					<div class="large-12 columns">
+						or {{ page.text_keyword_instructions }}
+					</div> <!-- .large-12 -->
+				</div> <!-- .row -->
+			{% endif %}
+		</div> <!-- .form -->
+	</div> <!-- .form-wrap -->
+</div> <!-- #content -->
+
+{% if page.tags_count > 0 %}
+	<div id="page-tags" class="page-tags">
+		{% include "page_tags" with page %}
+	</div> <!-- .page-tags -->
+{% endif %}
+
+<div class="like-page">
+	<strong>Like us to spread the word</strong>
+	{% include "like_page" %}
+</div> <!-- .like-page -->
+
+{% if page.show_stream? %}
+	{% include "page_stream" %}
+{% endif %}
+<!-- @END pages_show_signup.html -->

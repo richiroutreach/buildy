@@ -1,69 +1,69 @@
+<!-- @START pages_show_faq.html -->
 {% include "breadcrumbs" %}
 
 {% if page.headline.size > 0 %}
-<h2 class="headline">{{ page.headline }}</h2>
+	<h2 class="headline">{{ page.headline }}</h2>
 {% endif %}
 
 <div id="content">
+	{% if page.faq.content.size > 0 %}
+		<div id="intro" class="intro">
+			{{ page.faq.content }}
+		</div> <!-- .intro -->
+	{% endif %}
 
-  {% if page.faq.content.size > 0 %}
-  <div id="intro" class="intro">
-    {{ page.faq.content }}
-  </div>
-  <hr class="marginless"/>
-  {% endif %}
+	<ul class="question-list">
+		{% for child in page.children %}
+			{% if child.type_name == 'Question' %}
+				<li><a href="{{ child.url }}">{{ child.headline }}</a></li>
+			{% endif %}
+		{% endfor %}
+	</ul>
 
-  <ul class="question-list">
-    {% for child in page.children %}
-    {% if child.type_name == 'Question' %}
-    <li><a href="{{ child.url }}">{{ child.headline }}</a></li>
-    {% endif %}
-    {% endfor %}
-  </ul>
-  <hr class="marginless"/>
+	<div class="faq faq-{{ page.id }}">
+		{% for child in page.children %}
+			<div class="page-excerpt question-page-{{ child.id }}">
+				{% if child.type_name == 'Question' %}
+					<div class="chiclet faq-q"></div>
 
-  <div class="faq faq-{{ page.id }}">
-    {% for child in page.children %}
-    <div class="page-excerpt question-page-{{ child.id }}">
+					<h3><a href="{{ child.url }}">{{ child.headline }}</a></h3>
 
-      {% if child.type_name == 'Question' %}
-      <div class="chiclet faq-q"></div><h3><a href="{{ child.url }}">{{ child.headline }}</a></h3>
+					<div class="excerpt">
+						{% if child.question.content.size > 0 %}
+							{{ child.question.content }}
+						{% endif %}
 
-      <div class="excerpt">
-        {% if child.question.content.size > 0 %}
-        {{ child.question.content }}
-        {% endif %}
-        {% if child.question.answer.size > 0 %}
-        <div class="row-fluid padtopmore">
-          <div class="span12">
-            <div class="answer-wrap clearfix">
-              <div class="chiclet faq-a"></div>
-              <div class="answer">{{ child.question.answer }}</div>
-            </div>
-          </div>
-        </div>
-        {% endif %}
-      </div>
-      <hr class="marginless"/>
-      {% endif %}
+						{% if child.question.answer.size > 0 %}
+							<div class="row">
+								<div class="large-12 columns">
+									<div class="answer-wrap clearfix">
+										<div class="chiclet faq-a"></div>
 
-    </div>
-    {% endfor %}
-  </div>
+										<div class="answer">{{ child.question.answer }}</div>
+									</div> <!--.answer-wrap -->
+								</div> <!-- .large-12 -->
+							</div> <!-- .row -->
+						{% endif %}
+					</div> <!-- .excerpt -->
+				{% endif %}
+			</div> <!-- .page-excerpt -->
+		{% endfor %}
+	</div> <!-- .faq -->
 
-  {% if page.tags_count > 0 %}
-  <div id="page-tags" class="page-tags">
-    {% include "page_tags" with page %}
-  </div>
-  {% endif %}
+	{% if page.tags_count > 0 %}
+		<div id="page-tags" class="page-tags">
+			{% include "page_tags" with page %}
+		</div> <!-- .page-tags -->
+	{% endif %}
 
-  <div class="like-page">
-    <h3>Was this helpful?</h3>
-    {% include "like_page" %}
-  </div>
+	<div class="like-page">
+		<h3>Was this helpful?</h3>
 
-  {% if page.show_stream? %}
-  {% include "page_stream" %}
-  {% endif %}
+		{% include "like_page" %}
+	</div> <!-- .like-page -->
 
-</div>
+	{% if page.show_stream? %}
+		{% include "page_stream" %}
+	{% endif %}
+</div> <!-- #content -->
+<!-- @END pages_show_faq.html -->

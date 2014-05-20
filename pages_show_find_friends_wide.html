@@ -1,4 +1,4 @@
-<!-- @START pages_show_find_friends.html -->
+<!-- @START pages_show_find_friends_wide.html -->
 {% include "breadcrumbs" %}
 
 {% if page.headline.size > 0 %}
@@ -10,7 +10,7 @@
 
 		{% if request.current_signup.has_facebook_authorization? %}
 			<!-- facebook connected -->
-			<div class="">
+			<div class="more">
 			You connected your Facebook account.
 			</div>
 			<div class="form-wrap facebook-box">
@@ -20,46 +20,44 @@
 				{% include "find_friends_facebook" %}
 			</div> <!-- .form-wrap -->
 		{% else %}
+			<!-- not connected state -->
+			<div class="more">
+				<div class="less"><strong>You have <em>not</em> connected your Facebook account.</strong></div>
 		
-		<!-- not connected state -->
-		<div class="">
-			<div class=""><strong>You have <em>not</em> connected your Facebook account.</strong></div>
-
-			<a href="{{ request.facebook_connect_url }}"><img src="{{ "signin_with_facebook.png" | asset_path }}"></a>
-		</div>
+				<a href="{{ request.facebook_connect_url }}"><img src="{{ "signin_with_facebook.png" | asset_path }}"></a>
+			</div>
 		{% endif %}
 
 		{% if request.current_signup.has_twitter_authorization? %}
 			<!-- twitter connected -->
-			<div class=" ">
+			<div class=" more">
 			You connected your Twitter account.
 			</div>
-			
 			<div class="form-wrap twitter-box">
 				<div class="">
 					<img src="/assets/twitter_logo.png" width="94" height="20" alt="Twitter" title="Twitter" />
 				</div>
 				{% include "find_friends_twitter" %}
-			</div>
+			</div> <!-- .form-wrap -->
 		{% else %}
 			<!-- not connected state -->
-			<div class=" ">
-				<div class=""><strong>You have <em>not</em> connected your Twitter account.</strong></div>
+			<div class=" more">
+				<div class="less"><strong>You have <em>not</em> connected your Twitter account.</strong></div>
 					<a href="{{ request.twitter_connect_url }}"><img src="{{ "signin_with_twitter.png" | asset_path }}"></a>
-				</div>
+			</div>
 		{% endif %}
-
+	
 	{% else %}
 		<!-- not connected state -->
-		<div class="">
-			<div class=""><strong>You have <em>not</em> connected your Facebook account.</strong></div>
+		<div class="more">
+			<div class="less"><strong>You have <em>not</em> connected your Facebook account.</strong></div>
 				<a href="{{ request.facebook_connect_url }}"><img src="{{ "signin_with_facebook.png" | asset_path }}"></a>
 		</div>
-		<div class=" ">
-			<div class=""><strong>You have <em>not</em> connected your Twitter account.</strong></div>
+		<div class=" more">
+			<div class="less"><strong>You have <em>not</em> connected your Twitter account.</strong></div>
 				<a href="{{ request.twitter_connect_url }}"><img src="{{ "signin_with_twitter.png" | asset_path }}"></a>
 		</div>
-
 	{% endif %}
+
 </div> <!-- .content -->
-<!-- @END pages_show_find_friends.html -->
+<!-- @END pages_show_find_friends_wide.html -->

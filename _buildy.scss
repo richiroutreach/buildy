@@ -1,7 +1,7 @@
 /*
-	_buildy.scss 
+	_buildy.scss
 	Created by Richir Outreach with "Presence" as a base
-  	Buildy V0.2.1
+  Buildy V0.2.1
 */
 
 /*
@@ -26,6 +26,7 @@
 		padding: 0.5rem 1rem;
 	}
 
+  /* fa? */
 	.fa {
 		padding-right: 0.5rem;
 	}
@@ -45,6 +46,15 @@ input[type="text"] {
 	}
 }
 
+.padtopmore {
+  padding-top: 15px;
+}
+
+.byline {
+    font-size: 0.8rem;
+    padding-bottom: 10px;
+}
+
 /*
 	--------------------------------------------------------------------------
 		Header
@@ -60,6 +70,21 @@ input[type="text"] {
 	--------------------------------------------------------------------------
 */
 
+/* supporter nav */
+.supporter-nav {
+	list-style-type: none;
+	margin: 0;
+
+	.button {
+		width: 100%;
+		padding: 1rem;
+	}
+}
+
+.right-column .pricing-table .price {
+  font-size: 1.3rem;
+}
+
 /*
 	--------------------------------------------------------------------------
 		Footer
@@ -74,16 +99,6 @@ input[type="text"] {
 	--------------------------------------------------------------------------
 */
 
-.supporter-nav {
-	list-style-type: none;
-	margin: 0;
-
-	.button {
-		width: 100%;
-		padding: 1rem;
-	}
-}
- 
 .right-column .email-signup {
 	.button {
 		width: 100%;
@@ -108,7 +123,7 @@ input[type="text"] {
 
 /*
 	--------------------------------------------------------------------------
-		Donateion Page (pages_show_donation_wide.html)
+		Donation Page (pages_show_donation_wide.html)
 	--------------------------------------------------------------------------
 */
 

@@ -1,42 +1,46 @@
+<!-- @START pages_show_paid_membership_wide.html -->
 {% include "breadcrumbs" %}
 
 {% if page.headline.size > 0 %}
-<h2 class="headline">{{ page.headline }}</h2>
+	<h2 class="headline">{{ page.headline }}</h2>
 {% endif %}
 
 <div id="content">
 
-  {% if page.paid_membership.content.size > 0 %}
-  <div id="intro" class="intro">
-    {{ page.paid_membership.content }}
-  </div>
-  {% endif %}
+	{% if page.paid_membership.content.size > 0 %}
+		<div id="intro" class="intro">
+		{{ page.paid_membership.content }}
+		</div> <!-- .intro -->
+	{% endif %}
 
-  <ul class="membership-list clearfix">
-    {% for membership_option in page.paid_membership.membership_options %}
-    <li class="membership">
-      <h4>{{ membership_option.membership_level_name }}</h4>
+	<ul class="membership-list clearfix">
 
-      <div class="padtopless padbottomless">
-        <strong>{{ membership_option.amount }}</strong> every {% if membership_option.num_time_periods > 1 %}{{ membership_option.num_time_periods }}{% endif %} {{ membership_option.time_period_type | downcase }}
-      </div>
-      {% if membership_option.has_membership_level_badge %}
-      <span class="badge"><i class="icon-tag"></i> {{ membership_option.membership_level_badge }}</span>
-      {% endif %}
-      <div class="membership-blurb padbottom">{{ membership_option.description }}</div>
-      <div class="buy"><a class="submit-button" href="{{ membership_option.purchase_url }}">Purchase</a></div>
-    </li>
-    {% endfor %}
-  </ul>
+		{% for membership_option in page.paid_membership.membership_options %}
+			<li class="membership">
+				<h4>{{ membership_option.membership_level_name }}</h4>
 
-  {% if page.tags_count > 0 %}
-  <div id="page-tags" class="page-tags">
-    {% include "page_tags" with page %}
-  </div>
-  {% endif %}
+				<div class="padtopless padbottomless">
+					<strong>{{ membership_option.amount }}</strong> every {% if membership_option.num_time_periods > 1 %}{{ membership_option.num_time_periods }}{% endif %} {{ membership_option.time_period_type | downcase }}
+				</div> 
 
-  {% if page.show_stream? %}
-  {% include "page_stream" %}
-  {% endif %}
+				{% if membership_option.has_membership_level_badge %}
+					<span class="badge"><i class="icon-tag"></i> {{ membership_option.membership_level_badge }}</span>
+				{% endif %}
+				<div class="membership-blurb padbottom">{{ membership_option.description }}</div>
 
-</div>
+				<div class="buy"><a class="submit-button button alert small" href="{{ membership_option.purchase_url }}">Purchase</a></div>
+			</li>
+		{% endfor %}
+	</ul>
+
+	{% if page.tags_count > 0 %}
+		<div id="page-tags" class="page-tags">
+		{% include "page_tags" with page %}
+		</div> <!-- .page-tags -->
+	{% endif %}
+
+	{% if page.show_stream? %}
+		{% include "page_stream" %}
+	{% endif %}
+</div> <!-- #content -->
+<!-- @END pages_show_paid_membership_wide.html -->

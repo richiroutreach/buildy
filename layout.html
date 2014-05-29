@@ -42,6 +42,8 @@
 
 	{{ content_for_header }}
 
+  {% include 'translation_strings' %}
+  
 	<!-- Font Awesome -->
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
@@ -58,17 +60,35 @@
 </head>
 
 <body class="aware-theme v2-theme {{ page.page_class_name }} {% if page.is_homepage? == true %}homepage{% endif %} {% if site.has_header_image? %}has-header-image{% endif %} {% if site.has_background_image? %}has-background-image{% endif %} {% if page.features_count > 0 %}has-features{% endif %} {% if site.has_meta_image? %}has-logo{% endif %} js page-{{ request.template | replace: '_', '-' }}">
+	{% if site.has_header_image? %}
+		<div class="header-wrap">
+			<div id="header" class="row">
+				{% include "header" %}
+			</div> <!-- #header --> 
+		</div> <!-- .header-wrap -->
+	{% endif %}
+
 	<div class="nav-wrap">
 		<div id="nav" class="row">
 			{% include "nav" %}
 		</div> <!-- #nav -->
 	</div> <!-- .nav-wrap -->
 
-	<div class="header-wrap">
-		<div id="header" class="row">
-			{% include "header" %}
-		</div> <!-- #header --> 
-	</div> <!-- .header-wrap -->
+	{% unless site.has_header_image? %}
+		<div class="header-wrap">
+			<div id="header" class="row">
+				{% include "header" %}
+			</div> <!-- #header --> 
+		</div> <!-- .header-wrap -->
+	{% endunless %}
+
+	{% if page.features_count > 0 %}
+		<div id="features-row" class="row">
+			<div class="large-12 columns features">
+				{% include "features" %}
+			</div> <!-- .features -->
+		</div> <!-- #features-row -->
+	{% endif %}
 
 	<div class="body-wrap">
 		<div id="body" class="row">

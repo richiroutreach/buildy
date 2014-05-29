@@ -1,59 +1,57 @@
+<!-- @START pages_show_activity_stream.html -->
 {% include "breadcrumbs" %}
 
 {% include "headline" %}
 
 <div id="content">
+	
+	{% if site.has_friends_page? %}
 
-  {% if site.has_friends_page? %}
+		{% if request.logged_in? == false or request.current_signup.has_facebook_authorization? == false %}
+			<div class="row ">
+				<div class="large-12 column">
+					<strong>Connect to Facebook to find your friends.</strong>
+					
+					<div class="">
+						<a href="{{ request.facebook_connect_url }}">
+							<img src="{{ "signin_with_facebook.png" | asset_path }}">
+						</a>
+					</div>
+				</div> <!-- .large-12 column -->
+			</div> <!-- .row -->
+		{% endif %}
 
-  {% if request.logged_in? == false or request.current_signup.has_facebook_authorization? == false %}
+		{% if request.logged_in? == false or request.current_signup.has_twitter_authorization? == false %}
+			<div class="row">
+				<div class="large-12 column">
+					<strong>Connect to Twitter to find your friends here.</strong>
+					
+						<div class="">
+							<a href="{{ request.twitter_connect_url }}">
+								<img src="{{ "signin_with_twitter.png" | asset_path }}">
+							</a>
+						</div>
+				</div> <!-- .large-12 column -->
+			</div> <!-- .row -->
+		{% endif %}
+	{% endif %}
 
-  <div class="row-fluid padbottommore">
-    <div class="span12">
-      <strong>Connect to Facebook to find your friends.</strong>
+	{% if request.logged_in? %}
+		<div id="stream">
+			<div class="reaction-wrap" id="reactions">
+				<ul id="stream-activities" class="activities">
 
-      <div class="padtopless">
-        <a href="{{ request.facebook_connect_url }}"><img src="{{ "signin_with_facebook.png" | asset_path }}"></a>
-      </div>
-    </div>
-  </div>
+					{% for activity in page.activity_stream.activities_following %}
+						<li class="activity clearfix">
+							<div class="stream-pic">{{ activity.signup.profile_image }}</div>
+							{{ activity.show }}
+						</li>
+					{% endfor %}
+				</ul> <!-- .activities -->
+			</div> <!-- #reactions -->
+		</div> <!-- #stream -->
 
-  {% endif %}
-
-  {% if request.logged_in? == false or request.current_signup.has_twitter_authorization? == false %}
-
-  <div class="row-fluid">
-    <div class="span12">
-      <strong>Connect to Twitter to find your friends here.</strong>
-
-      <div class="padtopless">
-        <a href="{{ request.twitter_connect_url }}"><img src="{{ "signin_with_twitter.png" | asset_path }}"></a></div>
-    </div>
-  </div>
-
-  {% endif %}
-
-  {% endif %}
-
-  {% if request.logged_in? %}
-
-  <div id="stream">
-    <div class="reaction-wrap" id="reactions">
-
-      <ul id="stream-activities" class="activities">
-        {% for activity in page.activity_stream.activities_following %}
-        <li class="activity clearfix">
-          <div class="stream-pic">{{ activity.signup.profile_image }}</div>
-          {{ activity.show }}
-        </li>
-        {% endfor %}
-      </ul>
-
-    </div>
-  </div>
-
-  {{ page.activity_stream.activities_following | paginate prev_label: "&laquo;" next_label: "&raquo;" }}
-
-  {% endif %}
-
-</div>
+		{{ page.activity_stream.activities_following | paginate prev_label: "&laquo;" next_label: "&raquo;" }}
+	{% endif %}
+</div> <!-- .content -->
+<!-- @END pages_show_activity_stream.html -->

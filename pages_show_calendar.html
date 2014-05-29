@@ -1,147 +1,138 @@
+<!-- @START pages_show_calender.html -->
 <div class="padcontainer">
 
-  {% include "breadcrumbs" %}
+{% include "breadcrumbs" %}
 
-  <div class="content-container">
+<div class="content-container">
+	{% include "headline" %}
 
-  {% include "headline" %}
+	<div id="content">
 
-    <div id="content">
+		{% if page.calendar.content.size > 0 %}
+			<div id="intro" class="intro">
+				{{ page.calendar.content }}
+			</div> <!-- .intro -->
+		{% endif %}
 
-      {% if page.calendar.content.size > 0 %}
-      <div id="intro" class="intro">
-        {{ page.calendar.content }}
-      </div>
-      {% endif %}
+		{% if page.calendar.is_proximity? %}
+			<div class="">
+				{% form_for address_change %}
+					<div class="form-wrap">
+						<div class="form">
+							<h4>Find {{ page.calendar.event_name | pluralize | downcase }} near you</h4>
+							<div class=" ">{% text_field "submitted_address", class:"text", placeholder:"Address or postal code" %}
+								<div class="less distance">
+									<span class="within">within</span>
+					
+									<span class="radio-inline">{{ page.calendar.distance_radio_buttons }}</span>
+								</div> 
+							</div>
 
-      {% if page.calendar.is_proximity? %}
+							<div>
+								{% submit_tag "Search", class:"submit-button" %}
 
-      <div class="padbottommore">
+								{% if page.calendar.allow_user_submitted? %}
+									or <a href="{{ page.calendar.new_event_url }}">Host your own</a>
+								{% endif %}
+								<div class="form-submit"></div>
+							</div>
 
-        {% form_for address_change %}
+							{% if page.calendar.events_upcoming_nearby_count > 0 %}
 
-        <div class="form-wrap">
-          <div class="form">
+								{% if page.calendar.events_upcoming_nearby_count > 1 %}
+									<div class="">
+										<strong>Found {{ page.calendar.events_upcoming_nearby_count }} {{ page.calendar.event_name | pluralize | downcase }}.</strong>
+									</div>
+								{% endif %}
+								<div class=" map-wrap">
+									<div class="map">{{ page.calendar.events_upcoming_nearby_map }}</div>
+								</div>
+							{% else %}
+								<div class="">
+									<strong><p>No {{ page.calendar.event_name | pluralize | downcase }} found nearby,</strong> try widening your search</p>
 
-            <h4>Find {{ page.calendar.event_name | pluralize | downcase }} near you</h4>
+									{% if page.calendar.allow_user_submitted? %}
+										<p>or maybe</P>
+										<a href="{{ page.calendar.new_event_url }}">host your own</a>
+									{% endif %}
+								</div>
 
-            <div class="padtop padbottom">{% text_field "submitted_address", class:"text", placeholder:"Address or postal code" %}
-              <div class="padtopless distance"><span class="within">within</span>
-                <span class="radio-inline">{{ page.calendar.distance_radio_buttons }}</span></div>
-            </div>
+								{% if page.calendar.events_upcoming.size > 0 %}
+									<div class="map-wrap ">
+										<div class="showing-all">Showing all {{ page.calendar.events_upcoming_count }} {{ page.calendar.event_name | pluralize | downcase }} instead.</div>
+										{{ page.calendar.events_upcoming_map }}
+									</div> <!-- .map-wrap -->
+								{% endif %}
+							{% endif %}
+						</div> <!-- .form -->
+					</div> <!-- .form-wrap -->
+				{% endform_for %}
+			</div>
 
-            <div>
-              {% submit_tag "Search", class:"submit-button" %}
-              {% if page.calendar.allow_user_submitted? %}
-              or <a href="{{ page.calendar.new_event_url }}">Host your own</a>
-              {% endif %}
-              <div class="form-submit"></div>
-            </div>
+				{% if page.calendar.events_upcoming_nearby.size > 0 %}
+					<ul class="event-wrap">
 
-            {% if page.calendar.events_upcoming_nearby_count > 0 %}
-            {% if page.calendar.events_upcoming_nearby_count > 1 %}
-            <div class="padtop">
-              <strong>Found {{ page.calendar.events_upcoming_nearby_count }} {{ page.calendar.event_name | pluralize | downcase }}.</strong>
-            </div>
-            {% endif %}
-            <div class="padtop map-wrap">
-              <div class="map">{{ page.calendar.events_upcoming_nearby_map }}</div>
-            </div>
-            {% else %}
-            <div class="padtopmore">
-              <strong>No {{ page.calendar.event_name | pluralize | downcase }} found nearby,</strong> try widening your search
-              {% if page.calendar.allow_user_submitted? %}
-              or maybe
-              <a href="{{ page.calendar.new_event_url }}">host your own</a>?
-              {% endif %}
-            </div>
-            {% if page.calendar.events_upcoming.size > 0 %}
-            <div class="map-wrap padtop">
-              <div class="showing-all">Showing all {{ page.calendar.events_upcoming_count }} {{ page.calendar.event_name | pluralize | downcase }} instead.</div>
-              {{ page.calendar.events_upcoming_map }}
-            </div>
-            {% endif %}
-            {% endif %}
+						{% for event in page.calendar.events_upcoming_nearby %}
+							<li>{% include "event" %}</li>
+						{% endfor %}
+					</ul>
 
-          </div>
-        </div>
+					{{ page.calendar.events_upcoming_nearby | paginate prev_label: "&laquo;" next_label: "&raquo;" }}		
+				{% else %}
+					<ul class="event-wrap">
 
-        {% endform_for %}
+						{% for event in page.calendar.events_upcoming %}
+							<li>{% include "event" %}</li>
+						{% endfor %}
+					</ul>
 
-      </div>
+					{{ page.calendar.events_upcoming | paginate prev_label: "&laquo;" next_label: "&raquo;" }}
+				{% endif %}
+			{% else %}
 
-      {% if page.calendar.events_upcoming_nearby.size > 0 %}
+				{% if page.calendar.show_map? %}
 
-      <ul class="event-wrap">
-        {% for event in page.calendar.events_upcoming_nearby %}
-        <li>{% include "event" %}</li>
-        {% endfor %}
-      </ul>
+					{% if page.calendar.events_upcoming_count > 0 %}
+						<div class="">
+							<div class="form-wrap">
+								<div class="form">
+									<div class=" map-wrap">
+									{{ page.calendar.events_upcoming_map }}
+									</div> <!-- .map-wrap -->
+								</div> <!-- .form -->
+							</div> <!-- .form-wrap -->
+						</div>
+					{% endif %}
+				{% endif %}
 
-      {{ page.calendar.events_upcoming_nearby | paginate prev_label: "&laquo;" next_label: "&raquo;" }}
+				{% if page.calendar.events_upcoming_count == 0 %}
 
-      {% else %}
+				No {{ page.calendar.event_name | pluralize | downcase }} yet.
 
-      <ul class="event-wrap">
-        {% for event in page.calendar.events_upcoming %}
-        <li>{% include "event" %}</li>
-        {% endfor %}
-      </ul>
+					{% if page.calendar.allow_user_submitted? %}
+					You should
+						<a href="{{ page.calendar.new_event_url }}">host your own</a>!
+					{% endif %}
+				{% else %}
 
-      {{ page.calendar.events_upcoming | paginate prev_label: "&laquo;" next_label: "&raquo;" }}
+					<ul class="event-wrap">
 
-      {% endif %}
+						{% for event in page.calendar.events_upcoming %}
+							<li>{% include "event" %}</li>
+						{% endfor %}
+					</ul>
 
-      {% else %}
-
-      {% if page.calendar.show_map? %}
-
-      {% if page.calendar.events_upcoming_count > 0 %}
-
-      <div class="padbottommore">
-        <div class="form-wrap">
-          <div class="form">
-            <div class="padtop map-wrap">
-              {{ page.calendar.events_upcoming_map }}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {% endif %}
-
-      {% endif %}
-
-      {% if page.calendar.events_upcoming_count == 0 %}
-
-      No {{ page.calendar.event_name | pluralize | downcase }} yet.
-      {% if page.calendar.allow_user_submitted? %}
-      You should
-      <a href="{{ page.calendar.new_event_url }}">host your own</a>!
-      {% endif %}
-
-      {% else %}
-
-      <ul class="event-wrap">
-        {% for event in page.calendar.events_upcoming %}
-        <li>{% include "event" %}</li>
-        {% endfor %}
-      </ul>
-
-      {% if page.calendar.allow_user_submitted? %}
-      <div class="padtopmore">
-        <a class="submit-link" href="{{ page.calendar.new_event_url }}">Host your own {{ page.calendar.event_name | downcase }}</a>
-      </div>
-      {% endif %}
-
-      <div class="padtop">
-        {{ page.calendar.events_upcoming | paginate prev_label: "&laquo;" next_label: "&raquo;" }}
-      </div>
-
-      {% endif %}
-
-      {% endif %}
-
-    </div>
-  </div>
-</div>
+					{% if page.calendar.allow_user_submitted? %}
+						<div class="">
+							<a class="submit-link button" href="{{ page.calendar.new_event_url }}">Host your own {{ page.calendar.event_name | downcase }}</a>
+						</div>
+					{% endif %}
+					<div class="">
+					{{ page.calendar.events_upcoming | paginate prev_label: "&laquo;" next_label: "&raquo;" }}
+					</div>
+				{% endif %}
+			{% endif %}
+		</div> <!-- #content -->
+	</div> <!-- .content-container -->
+</div> <!-- .padcontainer -->
+<!-- @END pages_show_calender.html -->

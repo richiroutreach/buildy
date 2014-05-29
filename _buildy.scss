@@ -1,7 +1,7 @@
 /*
 	_buildy.scss
 	Created by Richir Outreach with "Presence" as a base
-  Buildy V0.2.1
+	Buildy V0.2.1
 */
 
 /*
@@ -10,8 +10,35 @@
 	--------------------------------------------------------------------------
 */
 
+// Some of NB's plugins need this color
+$theme-color-2: $primary-color;
+
+// Default Foundation Settings
 @import "settings";
+
+// Load Foundation
 @import "foundation";
+
+// Some custom NB Mixins needed for other files to work
+@import "custom-mixins";
+
+// compass css3 mixins
+@import "compass/css3";
+
+// border-radius mixin
+@import "border_radius";
+
+// Timer
+@import "timer";
+
+// Progress Bar
+@import "progress-bar";
+
+// activity and page icons
+@import "icons";
+
+// user icon tooltips
+@import "tooltips";
 
 
 /*
@@ -20,13 +47,25 @@
 	--------------------------------------------------------------------------
 */
 
+#body.row, #header.row, #features-row, #footer.row {
+	background: white;
+}
+
+#body {
+	padding-top: 2rem;
+}
+
+#footer {
+	padding-bottom: 2rem;
+	padding-top: 1rem;
+}
+
 .button {
 
 	&.small {
 		padding: 0.5rem 1rem;
 	}
 
-  /* fa? */
 	.fa {
 		padding-right: 0.5rem;
 	}
@@ -46,13 +85,112 @@ input[type="text"] {
 	}
 }
 
-.padtopmore {
-  padding-top: 15px;
+.byline {
+	font-size: 0.8rem;
+	padding-bottom: 10px;
 }
 
-.byline {
-    font-size: 0.8rem;
-    padding-bottom: 10px;
+#flash {
+	background: $primary-color;
+	color: white;
+	margin: 1rem;
+	padding: 1rem;
+
+	.flash-message {
+		float: left;
+		font-size: 1.15rem;
+		padding-top: 5px;
+	}
+
+	.flash-close {
+		float: right;
+		padding: 0.25rem;
+		margin-bottom: 0;
+	}
+}
+
+.sub-nav {
+	display: none;
+}
+
+.pc {
+	background: $primary-color;
+	border: 1px solid darken($primary-color, 10);
+	color: white;
+	padding: 0.25rem;
+}
+
+.progress {
+	.bar-success {
+		background-color: $info-color;
+
+		.bar-text {
+			color: white;
+		}
+	}
+}
+
+/*
+	--------------------------------------------------------------------------
+		Legacy Presence Classes
+	--------------------------------------------------------------------------
+*/
+
+// These classes are "left over" from NationBuilder / Presence and should 
+// eventually be coded out of the html.
+
+.mobile-visible, .tablet-visible, .desktop-visible {
+	display: none;
+}
+
+.mobile-visible {
+	@media #{$small-only} {
+		display: block;
+	}
+}
+
+.tablet-visible {
+	@media #{$medium-only} {
+		display: block;
+	}
+}
+
+.desktop-visible {
+	@media #{$large-up} {
+		display: block;
+	}
+}
+
+.padtopless {
+	padding-top: 0.5rem
+}
+
+.padtop {
+	padding-top: 1rem;
+}
+
+.padtopmore {
+	padding-top: 1.5rem;
+}
+
+.padbottomless {
+	padding-bottom: 0.5rem;
+}
+
+.padbottom {
+	padding-bottom: 1rem;
+}
+
+.padbottommore {
+	padding-bottom: 1.5rem;
+}
+
+.center {
+	text-align: center;
+}
+
+.small-button {
+	@extend .button.small;
 }
 
 /*
@@ -61,8 +199,29 @@ input[type="text"] {
 	--------------------------------------------------------------------------
 */
  
+#header > .large-12 {
+	padding: 0;
+}
 
  
+/*
+	--------------------------------------------------------------------------
+		Slideshow
+	--------------------------------------------------------------------------
+*/
+
+.large-12.features {
+	padding: 0;
+}
+
+#page-features {
+	.orbit-caption {
+		a {
+			color: white;
+		}
+	}
+}
+
  
 /*
 	--------------------------------------------------------------------------
@@ -70,7 +229,43 @@ input[type="text"] {
 	--------------------------------------------------------------------------
 */
 
-/* supporter nav */
+
+/*
+	--------------------------------------------------------------------------
+		Footer
+	--------------------------------------------------------------------------
+*/
+ 
+
+/*
+	--------------------------------------------------------------------------
+		New User Page  (user_sessions_new_wide.html)
+	--------------------------------------------------------------------------
+*/
+
+.content-user-sessions-new-wide {
+	h2 {
+		font-size: 1.75rem;
+		text-align: center;	
+	}
+
+	.center h4 {
+		margin-top: 3rem;
+		font-size: 1.75rem;
+	}
+
+	.signin-with-facebook, .signin-with-twitter {
+		display: inline-block;
+		margin: 0 1rem;
+	}
+}
+
+/*
+	--------------------------------------------------------------------------
+		Sidebar (_supporter_nav.html)
+	--------------------------------------------------------------------------
+*/ 
+
 .supporter-nav {
 	list-style-type: none;
 	margin: 0;
@@ -85,14 +280,7 @@ input[type="text"] {
   font-size: 1.3rem;
 }
 
-/*
-	--------------------------------------------------------------------------
-		Footer
-	--------------------------------------------------------------------------
-*/
- 
 
- 
 /*
 	--------------------------------------------------------------------------
 		Sidebar (_non_supporter_nav.html)
@@ -241,5 +429,57 @@ input[type="text"] {
 			cursor: pointer;
 			outline: none;	
 		}
+	}
+}
+
+
+
+/*
+	--------------------------------------------------------------------------
+		Calendar Page (pages_show_calendar.html, pages_show_calendar_wide.html)
+	--------------------------------------------------------------------------
+*/
+
+ul.event-wrap {
+	list-style-type: none;
+	margin-left: 0;
+}
+
+/*
+	--------------------------------------------------------------------------
+		Event Page (pages_show_event.html, pages_show_event_wide.html)
+	--------------------------------------------------------------------------
+*/
+
+.event-detail {
+	margin-bottom: 1rem;
+	line-height: 1.5;
+
+	.subhead {
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+
+	.subext {
+		font-style: italic;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+
+/*
+	--------------------------------------------------------------------------
+		Paid Membership Page (pages_show_paid_membership_wide.html)
+	--------------------------------------------------------------------------
+*/
+
+.membership-list {
+	list-style-type: none;
+
+	li {
+		padding-bottom: 2rem;
 	}
 }

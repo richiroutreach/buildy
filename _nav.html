@@ -2,7 +2,7 @@
 <nav id="menu" role="navigation" class="top-bar" data-topbar>
 	<ul class="title-area">
 		<li class="name">
-			<h1><a href="#">{{ site.name }}</a></h1>
+      <h1><a href="/">{{ site.name }}</a></h1>
 		</li>
 
 		<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
@@ -18,7 +18,7 @@
 					</li>
 				{% else %}
 					<li class="{% if child.is_or_is_ancestor_of_current_page? %}active{% endif %} drop has-dropdown">
-						<a href="{{ child.url }}">{{ child.name }} <i class="icon-angle-down"></i></a>
+						<a href="{{ child.url }}">{{ child.name }}</a>
 						
 						<ul class="sub dropdown">
 							{% if site.show_parent_in_nav_dropdown? %}

@@ -11,7 +11,7 @@
 {% assign t_youshould = 'You should' %}
 {% assign t_juststarted = 'Just Started!' %}
 {% assign t_raised = 'raised' %}
-{% assign t_donors = 'donors' %}
+{% assign t_donors = 'Donors' %}
 {% assign t_nobankaccount = 'No bank account' %}
 {% assign t_notworkaccount = 'This page will not work until you add a bank account.' %}
 {% assign t_testingmode = 'Testing mode' %}
@@ -29,8 +29,10 @@
 {% assign t_employercountry = 'Employer Country' %}
 {% assign t_employeraddress = 'Employer Address' %}
 {% assign t_employercity = 'Employer City' %}
+{% assign t_employer_info = 'Employer Info' %}
 {% assign t_lawemployment = 'Law requires we ask for your employer and occupation. If you do not have an employer or are retired, put N/A, and if you are self-employed put "self-employed" in employer and describe your occupation.' %}
 {% assign t_businesscontribution = 'This is a contribution from a business.' %}
+{% assign t_donate_legalese_ask_employer = 'Law requires we ask for your employer and occupation.' %} 
 {% assign t_amount = 'Amount' %}
 {% assign t_billedautomatically = '- billed automatically every' %}
 {% assign t_clearorder = 'Clear order' %}
@@ -51,8 +53,11 @@
 {% assign t_reaction = 'reaction' %}
 {% assign t_addreact = 'Add your reaction' %}
 {% assign t_readmore = 'Read more' %}
+{% assign t_bill_credit_card_monthly = 'Your credit card will be billed automatically every month.' %}
+{% assign t_installments = 'Installments' %}
 
 {% comment %} GENERAL {% endcomment %} 
+{% assign t_edit_this_page = 'Edit this page' %}
 {% assign t_general_if_not = 'If you&#39;re not'  %}
 {% assign t_general_click_here = 'click here' %}
 {% assign t_general_submit = 'Submit' %}
@@ -60,19 +65,65 @@
 {% assign t_general_or = 'or' %}
 {% assign t_general_yes = 'Yes' %}
 {% assign t_general_no = 'No' %}
+{% assign t_general_to = 'to' %}
+{% assign t_general_tags = 'tags' %}
 {% assign t_general_here = 'here' %}
+{% assign t_general_supporters = 'Supporters' %}
+{% assign t_general_could_vote = 'Could Vote' %}
+{% assign t_general_will_vote = 'Will Vote' %}
+{% assign t_general_name = 'Name' %}
 {% assign t_general_first_Name = 'First Name' %}
 {% assign t_general_last_Name = 'Last Name' %}
 {% assign t_general_email = 'Email' %}
 {% assign t_general_mobil_phone = 'Mobile phone (Optional)' %}
-{% assign t_general_send_email_updates = 'Send me email updates' %}
-{% assign t_general_send_text_messages = 'Send me text messages' %}
+{% assign t_general_send_email_updates = 'Send me email updates.' %}
+{% assign t_general_send_text_messages = 'Send me text messages.' %}
 {% assign t_general_phone = 'Phone' %}
 {% assign t_general_address = 'Address (Street, City, State, Postal code)' %}
 {% assign t_general_volunteer = 'I want to volunteer' %}
+{% assign t_general_volunteers = 'Volunteers' %}
+{% assign t_general_want_to_pay_with = 'I want to pay the following in' %}
 {% assign t_general_shifts = 'Choose shifts' %}
+{% assign t_general_choose_one = 'Choose one' %}
 {% assign t_general_facebook = 'Facebook' %}
+{% assign t_general_like_on_facebook = 'Like on Facebook' %}
+{% assign t_general_like_to_spread_word = 'Like this page to spread the word.' %}
+{% assign t_general_facebook_connected = 'You connected your Facebook account.' %}
+{% assign t_general_facebook_not_connected = 'You have NOT connected your Facebook account.' %}
+{% assign t_general_connect_to_facebook_to_find_your_friends = 'Connect to Facebook to find your friends.' %}
+{% assign t_general_connect_to_twitter_to_find_your_friends = 'Connect to Twitter to find your friends.' %}
 {% assign t_general_twitter = 'Twitter' %}
+{% assign t_general_tweet = 'Tweet your followers' %}
+{% assign t_general_share_plus = 'Share on Google+' %}
+{% assign t_general_share_linkedin = 'Share with your Linkedin network' %}
+{% assign t_general_share_other_socials = 'You can also post to tumblr, reddit, and digg.' %}
+{% assign t_general_twitter_connected = 'You connected your Twitter account.' %}
+{% assign t_general_twitter_not_connected = 'You have NOT connected your Twitter account.' %}
+{% assign t_general_connect = 'connect' %}
+{% assign t_general_do_you_like_this_page = 'Do you like this page?' %}
+{% assign t_general_your_info = 'Your info' %}
+{% assign t_general_payment = 'Payment' %}
+{% assign t_general_continue = 'Continue' %}
+{% assign t_general_back = 'Back' %}
+{% assign t_general_wide = 'wide' %}
+{% assign t_general_send_updates = 'Send email updates' %}
+{% assign t_general_send_email_or_pm = 'Send an email or private Facebook message' %}
+{% assign t_general_endorsements = 'endorsements' %}
+{% assign t_general_your_title = 'Your Title' %}
+{% assign t_general_org_company = 'Organization/Company Name' %}
+{% assign t_general_optional = '(optional)' %}
+{% assign t_general_comments = 'Comments' %}
+{% capture t_general_upload_logo %}Upload a {% if page.endorsement.require_organization? %}logo{% else %}picture{% endif %} (140x140){% endcapture %}
+{% assign t_general_like_this = 'Like this to spread the word:' %}
+{% assign t_general_thanksigning = 'Thank you for signing!' %}
+{% assign t_general_change_comment = 'Change your comment' %}
+{% capture t_general_youarenot %} If you're not {{ request.current_signup.name_or_email }}, <a href="{{ request.current_signup.logout_url }}">click here</a>. {% endcapture %}
+{% assign t_general_dont_post_public = 'Do not post this publicly' %}
+{% capture t_general_you_have_followers %}'You have <strong>{{ request.current_signup.followers_count }}</strong> followers.' {% endcapture %}
+{% assign t_general_most_recent = 'Most recent' %}
+{% assign t_general_alphabetical = 'Alphabetical' %}
+{% assign t_general_unsubscribe = 'Unsubscribe' %}
+{% assign t_general_helpful = 'Was this helpful?'' %}
 
 {% assign t_clickhere = 'click here' %}
 {% assign t_affirm = 'Yes' %}
@@ -89,18 +140,38 @@
 
 {% comment %} BLOG {% endcomment %} 
 {% assign t_posted = 'Posted by' %}
+{% assign t_blog_read_more = 'Read more' %}
+{% assign t_blog_response_from = 'Official response from' %}
+
 
 {% comment %} CALENDAR {% endcomment %} 
-{% assign t_hostyourown = 'host yer own' %}
-{% assign t_Hostyourown = 'Host yer own' %}
+{% assign t_hostyourown = 'Host your own' %}
 {% assign t_find = 'find' %}
+{% capture t_calendar_event_near_you %}Find {{ page.calendar.event_name | pluralize | downcase }} near you{% endcapture %}
 
 {% comment %} VOLUNTEER {% endcomment %} 
 {% assign t_callwhen = 'When is a good time to call?' %}
+{% assign t_volunteer_can_you = 'can you volunteer?' %}
+{% assign t_volunteer_will_you = 'Will you volunteer?' %}
+{% assign t_volunteer_update_info = 'You can update your info below.' %}
+{% assign t_volunteer_have_you_down = 'we have you down as a volunteer.' %}
 {% assign t_ifyourenot = 'If you are not' %}{% comment %} not sure how to escape single quote ' {% endcomment %} 
+{% assign t_volunteer_when_available = 'When are you available? (optional)' %}
+{% assign t_volunteer_comments_etc = 'Comments, other ideas, etc. (optional)' %}
+{% assign t_volunteer_like = 'Like this to encourage your friends to volunteer.' %}
+
+{% comment %} ENDORSE {% endcomment %} 
+{% assign t_endorse_myorg = 'My organization is making the endorsement.' %}
+{% assign t_endorse_featured = 'Featured endorsements' %}
+{% capture t_endorse_will_you %}Hi {{ request.current_signup.name_or_email }}, will {% if page.endorsement.require_organization? %}your organization{% else %}you{% endif %} endorse?{% endcapture %}
+
+{% comment %} SIGNUP {% endcomment %} 
+{% capture t_signup_thanks_joining %}Hi {{ request.current_signup.name_or_email }}, thanks for joining!{% endcapture %}
+
 
 {% comment %} SURVEY {% endcomment %} 
 {% assign t_surveylike = 'Do you like this survey?' %}
+{% assign t_survey_no_questions = 'This survey has no published questions.' %}
 
 {% comment %} EVENT {% endcomment %}
 {% assign t_event_when = 'When' %}
@@ -126,4 +197,75 @@
 {% assign t_event_host = 'Did a host refer you?' %}
 {% assign t_event_no_publish = 'Don&#39;t publish my RSVP on the website' %}
 {% assign t_event_also_rsvp = 'Also RSVP on' %}
+{% assign t_event_host_your_own = 'Host your own' %}
+
+{% comment %} MONEYBOMB {% endcomment %} 
+{% assign t_bomb_countdown = 'COUNTDOWN TO' %}
+{% assign t_bomb_time_left = 'TIME LEFT TO DONATE' %}
+{% assign t_bomb_pledged = 'pledged' %}
+{% assign t_bomb_pledgers = 'pledgers' %}
+{% assign t_bomb_thank = 'Thank you for pledging!' %}
+{% assign t_bomb_change = 'Change your pledge amount' %}
+{% assign t_bomb_do_not_publish = 'Do not publish this on the website' %}
+{% capture t_bomb_pledge_to_donate  %} Hi {{ request.current_signup.name_or_email }}, how much will you pledge to donate
+      {% if page.moneybomb.has_start_at? %} on {{ page.moneybomb.local_start_at | moneybomb_time }}{% endif %}? {% endcapture %}
+{% capture t_bomb_pledge_to_donate_later  %}How much will you pledge to donate
+     {% if page.moneybomb.has_start_at? %} on {{ page.moneybomb.local_start_at | moneybomb_time }}{% endif %}? {% endcapture %}
+
+
+{% comment %} PETITION {% endcomment %} 
+{% assign t_pet_thank_signing = 'Thank you for signing!' %}
+{% assign t_pet_change_comment = 'Change your comment' %}
+{% assign t_pet_upload_pic = 'Upload a picture' %}
+{% assign t_pet_Update = 'Update' %}
+{% assign t_pet_Remove = 'Remove' %}
+{% assign t_pet_Will_you = 'Will you sign?' %}
+{% assign t_pet_Add = 'Add' %}
+
+{% comment %} SURVEY {% endcomment %} 
+{% assign t_survey_will_answer = 'will you answer a few questions?' %}
+
+{% comment %} RECRUIT {% endcomment %} 
+{% assign t_recruit_references_credited_you = 'Anyone referred through your personal tracking link or through the buttons below will be credited to you.' %}
+{% assign t_recruit_personal_tracking_link = 'to get your personal tracking link.' %}
+{% assign t_recruit_your_personal_tracking_link = 'your personal tracking link.' %}
+{% assign t_recruit_non_tracking_link = 'Non tracking link.' %}
+{% assign t_recruit_who_you_recruited = 'You will be able to see who you have recruited below.' %}
+{% assign t_recruit_who_you_recruited_signed_in = 'When you sign in, you will be able to see who you've recruited here.' %}
+
+{% comment %} VOTES {% endcomment %} 
+{% assign t_votes_found = 'VOTES FOUND' %}
+{% assign t_votes = 'votes' %}
+{% assign t_votes_I_support = 'I support' %}
+{% assign t_votes_might = 'I might' %}
+{% assign t_votes_support = 'support' %}
+{% assign t_votes_tell_me = 'tell me more' %}
+{% assign t_votes_not_support = 'I do not support' %}
+
+{% comment %} INVOICE {% endcomment %} 
+{% assign t_invoice = 'Invoice' %}
+{% assign t_invoice_quantity = 'Quantity' %}
+{% assign t_invoice_total = 'Total' %}
+{% assign t_invoice_no_outstanding = 'You have no outstanding invoices.' %}
+{% assign t_invoice_to_pay = 'Invoice to pay' %}
+{% assign t_invoice_closed = 'Closed invoices' %}
+{% assign t_invoice_closed_on = 'Closed on' %}
+{% assign t_invoice_pdf = 'PDF' %}
+
+
+{% comment %} Splash {% endcomment %} 
+{% assign t_continue_to = 'Continue to' %}
+
+{% comment %} Nav {% endcomment %} 
+{% assign t_Menu = 'Menu' %}
+
+{% comment %} Footer {% endcomment %} 
+{% assign t_View_your = 'View your' %}
+{% assign t_public_profile = 'public profile' %}
+{% assign t_acct_settings = 'account settings' %}
+{% assign t_Created_by = 'Created by' %}
+{% assign t_NB_credit = 'Built on NationBuilder' %}
+{% assign t_sign_w = 'Sign in with' %}
+
+
 <!-- @END _translation_strings.html  -->

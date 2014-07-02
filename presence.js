@@ -4,6 +4,9 @@ $(document).ready(function(){
 
   (function(){
 
+    /*
+      We don't need the presence JS messing with our dropdowns 
+
     // Centers navigation dropdowns
     this.initializeDropdowns = function(dropdownLink) {
       var dropdown = dropdownLink.children('.sub');
@@ -51,7 +54,9 @@ $(document).ready(function(){
         this.checkNavWrap();
       }
     }
+    */
 
+    /*
     // Footer sizing
     this.updateFooter = function() {
       var heightDiff = $(window).height() - $('#body').height();
@@ -64,6 +69,7 @@ $(document).ready(function(){
         }
       }
     }
+	*/
 
     // Staged donations
     this.updateContainerHeight = function(height) {
@@ -239,17 +245,21 @@ $(document).ready(function(){
 
   }).apply(PresenceTheme);
   
+  /*
   // Navigation centering
   PresenceTheme.centerDropdowns();
   $(window).resize(function(){
     PresenceTheme.centerDropdowns();
   });
+  */
 
+  /*
   // Update footer height if window taller than page
   PresenceTheme.updateFooter();
   $(window).resize(function(){
     setTimeout(function(){PresenceTheme.updateFooter()},300);
   });
+	*/
 
   // Staged donations
   if ($('.progress-indicator-stages').length) {

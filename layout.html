@@ -7,12 +7,14 @@
 <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
 <html class="no-js"> <!--<![endif]-->
+<!-- @START layout.html -->
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>{{ page_title }}</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link rel="stylesheet" href="{{ theme['foundation.min.css'] }}" type="text/css">
 	<link rel="stylesheet" href="theme.scss" type="text/css">
 	<link rel="stylesheet" href="tablet-and-desktop.scss" type="text/css" media="screen and (min-width: 768px)">
 
@@ -42,9 +44,7 @@
 
 	{{ content_for_header }}
 
-  {% include 'translation_strings' %}
-  
-	<!-- Font Awesome -->
+  <!-- Font Awesome -->
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
 	<script type="text/javascript" src="jquery.ui.effect.min.js"></script>
@@ -57,6 +57,8 @@
 	<script type="text/javascript">
 		NB.appConfig.userIsLoggedIn = {{request.logged_in?}};
 	</script>
+  
+  {% include "translation_strings" %}
 </head>
 
 <body class="aware-theme v2-theme {{ page.page_class_name }} {% if page.is_homepage? == true %}homepage{% endif %} {% if site.has_header_image? %}has-header-image{% endif %} {% if site.has_background_image? %}has-background-image{% endif %} {% if page.features_count > 0 %}has-features{% endif %} {% if site.has_meta_image? %}has-logo{% endif %} js page-{{ request.template | replace: '_', '-' }}">
@@ -134,4 +136,5 @@
 		$(document).foundation();
 	</script>
 </body>
+<!-- @END layout.html -->
 </html>

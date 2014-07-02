@@ -1,6 +1,8 @@
 <!-- @START pages_show_vote_pledge.html -->
 {% include "breadcrumbs" %}
 
+{% include "translation_strings" %}
+
 {% if page.headline.size > 0 %}
 	<h2 class="headline">{{ page.headline }}</h2>
 {% endif %}
@@ -24,16 +26,16 @@
 			<div class="progress" style="width: {{ thermo_width }}%;">
 				<div class="bar bar-success" style="width: {{ page.vote_pledge.percent_of_yes_goal | times:100 }}%;">
 					{% if page.vote_pledge.yes_votes_count < 2 %}
-						<div class="bar-text">JUST STARTED</div>
+          <div class="bar-text">{{ t_juststarted }}</div>
 					{% else %}
-						<div class="bar-text">{{ page.vote_pledge.yes_votes_count | number_with_commas }} VOTES FOUND</div>
+          <div class="bar-text">{{ page.vote_pledge.yes_votes_count | number_with_commas }} {{ t_votes_found }}</div>
 					{% endif %}
 				</div> <!-- .bar -->
 			</div> <!-- .progress -->
-			<div class="bar-goal">{{ page.vote_pledge.yes_goal | number_with_commas }} votes</div>
+      <div class="bar-goal">{{ page.vote_pledge.yes_goal | number_with_commas }} {{ t_votes }}</div>
 		</div> <!-- .clearfix -->
 	{% elsif page.vote_pledge.yes_votes_count > 4 %}
-		<div class=""><h4>{{ page.vote_pledge.yes_votes_count | number_with_commas }} votes</h4></div>
+  <div class=""><h4>{{ page.vote_pledge.yes_votes_count | number_with_commas }} {{ t_votes }}</h4></div>
 	{% endif %}
 
 	{% if page.vote_pledge.is_pledged? %}
@@ -67,20 +69,20 @@
 				<div id="vote_pledge_form" class="vote-pledge-form">
 					<div class="row">
 						<div class="large-12 columns">
-							<a href="{{ page.vote_pledge.yes_url }}" class="button create-link get">Yes</a> I support {{ site.candidate_first_name_or_site_name }}.
+              <a href="{{ page.vote_pledge.yes_url }}" class="button create-link get">{{ t_general_yes }}</a> {{ t_votes_I_support }} {{ site.candidate_first_name_or_site_name }}.
 						</div> <!-- .large-12 columns -->
 					</div> <!-- .row -->
 
 					<div class="row">
 						<div class="large-12 columns">
-							<a href="{{ page.vote_pledge.unsure_url }}" class="button submit-link get"> I might</a> support {{ site.candidate_first_name_or_site_name }},
-							<a href="{{ site.full_url}}">tell me more</a>.
+              <a href="{{ page.vote_pledge.unsure_url }}" class="button submit-link get"> {{ t_votes_might }}</a> {{ t_votes_support }} {{ site.candidate_first_name_or_site_name }},
+              <a href="{{ site.full_url}}">{{ t_votes_tell_me }}</a>.
 						</div> <!-- .large-12 columns -->
 					</div> <!-- .row -->
 
 					<div class="row">
 						<div class="large-12 columns">
-							<a href="{{ page.vote_pledge.no_url }}" class="button destroy-link get">No</a> I do not support {{ site.candidate_first_name_or_site_name }}.
+              <a href="{{ page.vote_pledge.no_url }}" class="button destroy-link get">{{ t_general_no }}</a> {{ t_votes_not_support }} {{ site.candidate_first_name_or_site_name }}.
 						</div> <!-- .large-12 columns -->
 					</div> <!-- .row -->
 				</div> <!-- .vote-pledge-form -->
@@ -88,7 +90,7 @@
 
 			{% if page.text_keyword_instructions.size > 0 %}
 				<div class="">
-					or {{ page.text_keyword_instructions }}
+          {{ t_general_or }} {{ page.text_keyword_instructions }}
 				</div>
 			{% endif %}
 		</div> <!-- .form-wrap -->
@@ -101,7 +103,7 @@
 	{% endif %}
 
 	<div class="like-page">
-		<strong>Like this to spread the word</strong>
+    <strong>{{ t_general_like_this }}</strong>
 			{% include "like_page" %}
 	</div> <!-- .like-page -->
 

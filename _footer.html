@@ -6,24 +6,24 @@
 
 	<div class="large-7 columns left-column">
 		{% if request.logged_in? %}
-			Hi <a href="{{ request.current_signup.settings_url }}">{{ request.current_signup.name_or_email }}</a>. View your
+    	{{ t_general_hi }} <a href="{{ request.current_signup.settings_url }}">{{ request.current_signup.name_or_email }}</a>. {{ t_View_your }}
 			
 			{% if site.show_public_profiles? %}
-				<a href="{{ request.current_signup.profile_url }}">public profile</a>,
+				<a href="{{ request.current_signup.profile_url }}">{{ t_public_profile }}</a>,
 			{% endif %}
 			
-			<a href="{{ request.current_signup.settings_url }}">account settings</a>, or <a href="{{ request.current_signup.logout_url }}">sign out</a>.
+			<a href="{{ request.current_signup.settings_url }}">{{ t_acct_settings }}</a>, {{ t_or }} <a href="{{ request.current_signup.logout_url }}">{{ t_signout }}</a>.
 		
 			{% if request.current_signup.is_admin? %}
-				<a href="{{ page.admin_edit_url }}" target="_blank">Edit This Page</a>.
+				<a href="{{ page.admin_edit_url }}" target="_blank">{{ t_edit_this_page }}</a>.
 			{% endif %}
 		{% else %}
-			Sign in with <a href="{{ request.facebook_connect_url }}">Facebook</a>, <a href="{{ request.twitter_connect_url }}">Twitter</a> or <a href="/login">email</a>.
+    	{{ t_sign_w }} <a href="{{ request.facebook_connect_url }}">{{ t_general_facebook }}</a>, <a href="{{ request.twitter_connect_url }}">{{ t_general_twitter }}</a> {{ t_or }} <a href="/login">{{ t_email }}</a>.
 		{% endif %}
 	</div> <!-- .left-column -->
 
 	<div class="large-5 columns right-column">
-		Created by <a href="http://www.richiroutreach.com" title="NationBuilder Architect">Richir Outreach</a>. Built on <a href="http://nationbuilder.com/">NationBuilder</a>
+		{{ t_Created_by }} <a href="http://www.richiroutreach.com" title="NationBuilder Architect">Richir Outreach</a>. {{ t_NB_credit }}.
 	</div> <!-- .right-column -->
 </footer>
 <!-- @END _footer.html -->

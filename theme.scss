@@ -1,7 +1,7 @@
 /*
 theme.scss
 Created by Richir Outreach with "Presence" as a base
-Buildy V0.2.1
+Buildy V0.2.2
 */
 
 /*
@@ -28,6 +28,11 @@ $info-color: #a0d3e8;
 // Default CSS & Foundation Imports
 @import "buildy";
 
+// activity and page icons
+@import "icons";
+
+// user icon tooltips
+@import "tooltips";
 
 /*
 	--------------------------------------------------------------------------

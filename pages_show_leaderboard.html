@@ -1,5 +1,7 @@
 {% include "breadcrumbs" %}
 
+{% include "translation_strings" %}
+
 {% include "headline" %}
 
 <div id="content">
@@ -30,7 +32,7 @@
 
     {% if leaderboard.display_number_results > 0 %}
 
-    <h4>Top {{ leaderboard.display_number_results }} {{ leaderboard.display_name }}</h4>
+    <h4>{{ t_Top }} {{ leaderboard.display_number_results }} {{ leaderboard.display_name }}</h4>
 
     {% for entry in leaderboard.entries %}
     <div class="people-list {% cycle 'odd', 'even' %}">
@@ -48,7 +50,7 @@
   {% endfor %}
 
   <div class="like-page">
-    <strong>Do you like this?</strong>
+    <strong>{{ t_general_do_you_like_this_page }}</strong>
     {% include "like_page" %}
   </div>
 </div>

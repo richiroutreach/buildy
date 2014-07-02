@@ -3,6 +3,8 @@
 
 {% include "headline" %}
 
+{% include "translation_strings" %}
+
 <div id="content">
 	
 	{% if site.has_friends_page? %}
@@ -10,7 +12,7 @@
 		{% if request.logged_in? == false or request.current_signup.has_facebook_authorization? == false %}
 			<div class="row ">
 				<div class="large-12 column">
-					<strong>Connect to Facebook to find your friends.</strong>
+          <strong>{{ t_general_connect_to_facebook_to_find_your_friends }}</strong>
 					
 					<div class="">
 						<a href="{{ request.facebook_connect_url }}">
@@ -24,9 +26,9 @@
 		{% if request.logged_in? == false or request.current_signup.has_twitter_authorization? == false %}
 			<div class="row">
 				<div class="large-12 column">
-					<strong>Connect to Twitter to find your friends here.</strong>
+          <strong>{{ t_general_connect_to_twitter_to_find_your_friends }}</strong>
 					
-						<div class="">
+						<div class="twttr">
 							<a href="{{ request.twitter_connect_url }}">
 								<img src="{{ "signin_with_twitter.png" | asset_path }}">
 							</a>

@@ -1,9 +1,9 @@
 <!-- @START pages_show_signup.html -->
+{% include 'translation_strings' %}
+
 {% include "breadcrumbs" %}
 
-{% if page.headline.size > 0 %}
-	<h2 class="headline">{{ page.headline }}</h2>
-{% endif %}
+{% include "headline" %}
 
 <div id="content">
 	{% if page.signup.content.size > 0 %}
@@ -20,11 +20,11 @@
 		<div class="form">
 			{% form_for signup %}
 				{% if request.sorta_logged_in? %}
-					<h4>Hi {{ request.current_signup.name_or_email }}, thanks for joining!</h4>
+      <h4>{{ t_signup_thanks_joining }}</h4>
 
 					{% if request.logged_in? == false %}
 						<div class="padbottommore">
-							<small>If you're not {{ request.current_signup.name_or_email }}, <a href="{{ request.current_signup.logout_url }}">click here to signup</a>.</small>
+              <small>{{ t_general_youarenot }}</small>
 						</div>
 					{% endif %}
 				{% endif %}
@@ -34,12 +34,12 @@
 				{% if request.sorta_logged_in? == false or request.current_signup.has_name? == false %}
 					<div class="row">
 						<div class="large-6 columns">
-							<label for="signup_first_name">First Name</label>
+              <label for="signup_first_name">{{ t_general_first_Name }}</label>
 							{% text_field "first_name", class:"text" %}
 						</div> <!-- .large-6 columns -->
 
 						<div class="large-6 columns">
-							<label for="signup_last_name">Last Name</label>
+              <label for="signup_last_name">{{ t_general_last_Name }}</label>
 							{% text_field "last_name", class:"text" %}
 						</div> <!-- .large-6 columns -->
 					</div> <!-- .row -->
@@ -48,13 +48,13 @@
 				{% if request.sorta_logged_in? == false or request.current_signup.has_mobile? == false %}
 					<div class="row">
 						<div class="large-6 columns">
-							<label for="signup_email">Email</label>
+              <label for="signup_email">{{ t_general_email }}</label>
 							{% email_field "email", class:"text" %}
 						</div> <!-- .large-6 -->
 
 						{% if site.ask_for_mobiles? %}
 							<div class="large-6 columns">
-								<label for="signup_mobile_number">Mobile phone</label>
+                <label for="signup_mobile_number">{{ t_general_mobil_phone }}</label>
 								{% phone_field "mobile_number", class:"text" %}
 							</div> <!-- .large-6 -->
 						{% endif %}
@@ -62,12 +62,12 @@
 
 					<div class="row">
 						<div class="large-6 columns">
-							<label class="checkbox" for="signup_email_opt_in">{% check_box "email_opt_in", class:"checkbox" %} Send me email updates</label>
+              <label class="checkbox" for="signup_email_opt_in">{% check_box "email_opt_in", class:"checkbox" %} {{ t_general_sendmeupdates }}</label>
 						</div> <!-- large-6 -->
 
 						{% if site.ask_for_mobiles? %}
 							<div class="large-6 columns">
-								<label class="checkbox" for="signup_mobile_opt_in">{% check_box "mobile_opt_in", class:"checkbox" %} Send me text message updates</label>
+                <label class="checkbox" for="signup_mobile_opt_in">{% check_box "mobile_opt_in", class:"checkbox" %} {{ t_general_send_text_messages }}</label>
 							</div> <!-- .large-6 -->
 						{% endif %}
 					</div>
@@ -76,7 +76,7 @@
 				{% if page.signup.is_phone? %}
 					<div class="row">
 						<div class="large-12 columns">
-							<label for="signup_phone_number">Phone</label>
+              <label for="signup_phone_number">{{ t_general_phone }}</label>
 							{% phone_field "phone_number", class:"text" %}
 						</div> <!-- .large-12 -->
 					</div> <!-- .row -->
@@ -86,14 +86,14 @@
 					{% if request.sorta_logged_in? == false or request.current_signup.has_full_address? == false %}
 						<div class="row">
 							<div class="large-12 columns">
-								<label for="signup_submitted_address">Address (Street, City, State, Postal code)</label>
+                <label for="signup_submitted_address">{{ t_general_address }}</label>
 								{% text_field "submitted_address", class:"text" %}
 							</div> <!-- .large-12 -->
 						</div> <!-- .row -->
 				
 						<div class="row">
 							<div class="large-12 columns">
-								<label for="signup_country_code">Country</label>
+                <label for="signup_country_code">{{ t_country }}</label>
 								{% collection_select "country_code", page.signup.countries, "code", "name", class:"select" %}
 							</div> <!-- .large-12 -->
 						</div> <!-- .row -->
@@ -103,7 +103,7 @@
 				{% if page.signup.has_optional_tags? %}
 					<div class="row">
 						<div class="large-12 columns">
-							<label for="signup_optional_tag">Choose one</label>
+              <label for="signup_optional_tag">{{ t_general_choose_one }}</label>
 							{% collection_select "optional_tag", page.signup.optional_tags, class:"select" %}
 						</div> <!-- .large-12 -->
 					</div> <!-- .row -->
@@ -113,7 +113,7 @@
 					{% if request.sorta_logged_in? == false or request.current_signup.is_volunteer == false %}
 						<div class="row">
 							<div class="large-12 columns">
-								<label class="checkbox" for="signup_is_volunteer">{% check_box "is_volunteer", class:"checkbox" %} I want to volunteer</label>
+                <label class="checkbox" for="signup_is_volunteer">{% check_box "is_volunteer", class:"checkbox" %} {{ t_general_volunteer }}</label>
 							</div> <!-- .large-12 -->
 						</div> <!-- .row -->
 					{% endif %}
@@ -121,7 +121,7 @@
 
 				<div class="row">
 					<div class="large-12 columns">
-						<label for="signup_activity_is_private" class="checkbox">{% check_box "activity_is_private", class:"checkbox" %} Don't publish this on the website</label>
+            <label for="signup_activity_is_private" class="checkbox">{% check_box "activity_is_private", class:"checkbox" %} {{ t_bomb_do_not_publish }}</label>
 					</div> <!-- .large-12 -->
 				</div> <!-- .row -->
 
@@ -153,7 +153,7 @@
 {% endif %}
 
 <div class="like-page">
-	<strong>Like us to spread the word</strong>
+  <strong>{{ t_sign_like_us }}</strong>
 	{% include "like_page" %}
 </div> <!-- .like-page -->
 

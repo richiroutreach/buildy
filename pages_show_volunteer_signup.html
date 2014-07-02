@@ -1,9 +1,9 @@
 <!-- @START pages_show_volunteer_signup.html -->
 {% include "breadcrumbs" %}
 
-{% if page.headline.size > 0 %}
-	<h2 class="headline">{{ page.headline }}</h2>
-{% endif %}
+{% include "headline" %}
+
+{% include "translation_strings" %}
 
 <div id="content">
 	{% if page.volunteer_signup.content.size > 0 %}
@@ -20,22 +20,22 @@
 		<div class="form">
 			{% if request.sorta_logged_in? %}
 				{% if request.current_signup.is_volunteer? %}
-					<h4>Hi {{ request.current_signup.name_or_email }}, we have you down as a volunteer.</h4>
+      <h4>{{ t_general_hi }} {{ request.current_signup.name_or_email }}, {{ t_volunteer_have_you_down }}</h4>
 
 					<div class="padtop">
-						You can update your info below.
+            {{ t_volunteer_update_info }}
 					</div>
 				{% else %}
-					<h4>Hi {{ request.current_signup.name_or_email }}, can you volunteer?</h4>
+      <h4>{{ t_general_hi }} {{ request.current_signup.name_or_email }}, {{ t_volunteer_can_you }}</h4>
 				{% endif %}
 
 				{% if request.logged_in? == false %}
 					<div class="padtop">
-						If you're not {{ request.current_signup.name_or_email }}, <a href="{{ request.current_signup.logout_url }}">click here</a>.
+            {{ t_general_youarenot }}
 					</div>
 				{% endif %}
 			{% else %}
-				<h4>Will you volunteer?</h4>
+      <h4>{{ t_volunteer_will_you }}</h4>
 			{% endif %}
 
 			{% form_for volunteer_signup %}
@@ -59,12 +59,12 @@
 				{% if request.sorta_logged_in? == false or request.current_signup.has_name? == false %}
 					<div class="row">
 						<div class="large-6 columns">
-							<label for="volunteer_signup_first_name">First Name</label>
+              <label for="volunteer_signup_first_name"> {{ t_general_first_Name }}</label>
 							{% text_field "first_name", class:"text" %}
 						</div> <!-- .large-6 -->
 				
 						<div class="large-6 columns">
-							<label for="volunteer_signup_last_name">Last Name</label>
+              <label for="volunteer_signup_last_name">{{ t_general_last_Name }}</label>
 							{% text_field "last_name", class:"text" %}
 						</div> <!-- .large-6 -->
 					</div> <!-- .row -->
@@ -73,13 +73,13 @@
 				{% if request.sorta_logged_in? == false %}
 					<div class="row">
 						<div class="large-6 columns">
-							<label for="volunteer_signup_email">Email</label>
+              <label for="volunteer_signup_email">{{ t_general_email }}</label>
 							{% email_field "email", class:"text" %}
 						</div> <!-- .large-6 -->
 				
 						{% if site.ask_for_mobiles? %}
 							<div class="large-6 columns">
-								<label for="volunteer_signup_mobile_number">Mobile phone (optional)</label>
+                <label for="volunteer_signup_mobile_number">{{ t_general_mobil_phone }}</label>
 								{% phone_field "mobile_number", class:"text" %}
 							</div> <!-- .large-6 -->
 						{% endif %}
@@ -87,12 +87,12 @@
 
 					<div class="row">
 						<div class="large-6 columns">
-							<label class="checkbox" for="volunteer_signup_email_opt_in">{% check_box "email_opt_in", class:"checkbox" %} Send me email updates</label>
+              <label class="checkbox" for="volunteer_signup_email_opt_in">{% check_box "email_opt_in", class:"checkbox" %} {{ t_general_send_email_updates }}</label>
 						</div> <!-- .large-6 -->
 
 						{% if site.ask_for_mobiles? %}
 							<div class="large-6 columns">
-								<label class="checkbox" for="volunteer_signup_mobile_opt_in">{% check_box "mobile_opt_in", class:"checkbox" %} Send me text messages</label>
+                <label class="checkbox" for="volunteer_signup_mobile_opt_in">{% check_box "mobile_opt_in", class:"checkbox" %} {{ t_general_send_text_messages }}</label>
 							</div> <!-- .large-6 -->
 						{% endif %}
 					</div> <!-- .row -->
@@ -101,12 +101,12 @@
 				{% if page.volunteer_signup.is_phone? %}
 					<div class="row">
 						<div class="large-6 columns">
-							<label for="volunteer_signup_phone_number">Phone</label>
+              <label for="volunteer_signup_phone_number">{{ t_general_phone }}</label>
 							{% phone_field "phone_number", class:"text" %}
 						</div> <!-- .large-6 -->
 				
 						<div class="large-6 columns">
-							<label for="volunteer_signup_phone_time">When is a good time to call?</label>
+              <label for="volunteer_signup_phone_time">{{ t_callwhen }}</label>
 							{% text_field "phone_time", class:"text" %}
 						</div> <!-- .large-6 -->
 					</div> <!-- .row -->
@@ -116,7 +116,7 @@
 					{% if request.sorta_logged_in? == false or request.current_signup.has_full_address? == false %}
 						<div class="row">
 							<div class="large-12 columns">
-								<label for="volunteer_signup_submitted_address">Address (Street, City, State, Postal code)</label>
+                <label for="volunteer_signup_submitted_address">{{ t_general_address }}</label>
 								{% text_field "submitted_address", class:"text" %}
 							</div> <!-- .large-12 -->
 						</div> <!-- .row -->
@@ -125,14 +125,14 @@
 
 				<div class="row">
 					<div class="large-12 columns">
-						<label for="volunteer_signup_availability">When are you available? (optional)</label>
+            <label for="volunteer_signup_availability">{{ t_volunteer_when_available }}</label>
 						{% text_field "availability", class:"text" %}
 					</div> <!-- .large-12 -->
 				</div> <!-- .row -->
 
 				<div class="row">
 					<div class="large-12 columns">
-						<label for="volunteer_signup_content">Comments, other ideas, etc. (optional)</label>
+            <label for="volunteer_signup_content">{{ t_volunteer_comments_etc }}</label>
 						{% text_area "content", class:"textarea autogrow" %}
 					</div> <!-- .large-12 -->
 				</div> <!-- .row -->
@@ -140,7 +140,7 @@
 				{% if site.ask_to_publish_to_stream? %}
 					<div class="row">
 						<div class="large-12 columns">
-							<label class="checkbox" for="volunteer_signup_is_private">{% check_box "is_private", class:"checkbox" %} Don't publish this on the website</label>
+              <label class="checkbox" for="volunteer_signup_is_private">{% check_box "is_private", class:"checkbox" %} {{ t_bomb_do_not_publish }}</label>
 						</div> <!-- .large-12 -->
 					</div> <!-- .row -->
 				{% endif %}
@@ -158,7 +158,7 @@
 	{% endif %}
 
 	<div class="like-page">
-		<strong>Like this to encourage your friends to volunteer.</strong>
+    <strong>{{ t_volunteer_like }}</strong>
 		{% include "like_page" %}
 	</div> <!-- .like-page -->
 

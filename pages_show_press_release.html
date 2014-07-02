@@ -1,4 +1,6 @@
 <!-- @START pages_show_press_release.html -->
+{% include 'translation_strings' %}
+
 {% include "breadcrumbs" %}
 
 <div id="content">
@@ -11,7 +13,7 @@
 			{% if page.has_author? %}
 				<div class="contact vcard">
 					<div class="contact-name">
-						Contact: <span class="n">{{ page.author.published_name }}</span>
+            {{ t_event_contact }}: <span class="n">{{ page.author.published_name }}</span>
 					</div> <!-- .contact-name -->
 
 					{% if page.author.has_phone? %}
@@ -42,7 +44,7 @@
 	{% endif %}
 
 	<div class="like-page">
-		<strong>Do you like this post?</strong>
+    <strong>{{ t_general_do_you_like_this_page }}</strong>
 		{% include "like_page" %}
 	</div> <!-- .like-page -->
 

@@ -10,14 +10,16 @@
 	--------------------------------------------------------------------------
 */
 
-// Some of NB's plugins need this color
+// Some of NB plugins need this color
 $theme-color-2: $primary-color;
 
 // Default Foundation Settings
-@import "settings";
+//@import "settings";
 
 // Load Foundation
-@import "foundation";
+//@import "foundation";
+
+@import "visibility";
 
 // Some custom NB Mixins needed for other files to work
 @import "custom-mixins";
@@ -36,9 +38,6 @@ $theme-color-2: $primary-color;
 
 // activity and page icons
 @import "icons";
-
-// user icon tooltips
-@import "tooltips";
 
 
 /*
@@ -229,6 +228,16 @@ input[type="text"] {
 	--------------------------------------------------------------------------
 */
 
+.top-bar-section {
+	.right {
+		li {
+			.dropdown {
+				left: 0;
+				right: auto;
+			}
+		}
+	}
+}
 
 /*
 	--------------------------------------------------------------------------

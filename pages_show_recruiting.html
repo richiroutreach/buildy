@@ -1,4 +1,6 @@
 <!--@START pages_show_recruiting.html -->
+{% include 'translation_strings' %}
+
 {% include "breadcrumbs" %}
 
 {% if page.headline.size > 0 %}
@@ -14,13 +16,13 @@
 	{% endif %}
 
 	{% if request.sorta_logged_in? %}
-		<p>Anyone referred through your personal tracking link or through the buttons below will credited to you.</p>
+  <p>{{ t_recruit_references_credited_you }}</p>
 	{% else %}
-		Sign in with <a href="{{ request.facebook_connect_url }}">Facebook</a>, 
+  {{ t_sign_w }} <a href="{{ request.facebook_connect_url }}">{{ t_general_facebook }}</a>, 
 		
-		<a href="{{ request.twitter_connect_url }}">Twitter</a> 
+  <a href="{{ request.twitter_connect_url }}">{{ t_general_twitter }}</a> 
 		
-		or <a href="/login">email</a> to get your personal tracking link.
+  {{ t_general_or }} <a href="/login">{{ t_general_email }}</a> {{ t_recruit_personal_tracking_link }}
 	<div class="">
 		<a href="{{ request.facebook_connect_url }}"><img src="{{ "signin_with_facebook.png" | asset_path }}"></a>
 		
@@ -30,12 +32,12 @@
 
 	<div class="form-wrap">
 		{% if request.sorta_logged_in? %}
-			<label for="tracking_link">Your personal tracking link</label>
+    <label for="tracking_link">{{ t_recruit_your_personal_tracking_link }}</label>
 
 			<form><input type="text" id="tracking_link" onclick="this.focus();this.select();" readonly="readonly" value="{{ page.recruiting.featured_page.full_url_with_recruiter }}"></input></form>
 		{% else %}
 			<div class="">
-				<div class="subhead">Non tracking link</div>
+        <div class="subhead">{{ t_recruit_non_tracking_link }}</div>
 				
 				<div class="subtext">
 					<form><input type="text" id="tracking_link" onclick="this.focus();this.select();" readonly="readonly" value="{{ page.recruiting.featured_page.full_url_with_recruiter }}"></input></form>
@@ -45,7 +47,7 @@
 	</div> <!-- .form-wrap -->
 
 	<div class="">
-		<h4>Like on Facebook</h4>
+    <h4>{{ t_general_like_on_facebook }}</h4>
 		<div class="">
 			{% if request.sorta_logged_in? %}
 				<fb:like href="{{ page.recruiting.featured_page.full_url }}" action="like" colorscheme="{{ site.facebook_colorscheme }}" ref="r{{ current_signup.id }}"></fb:like>
@@ -56,7 +58,7 @@
 	</div>
 
 	<div class="">
-		<h4>Send an email or private Facebook message</h4>
+    <h4>{{ t_general_send_email_or_pm }}</h4>
 		<div class="">
 			{% if request.sorta_logged_in? %}
 				<fb:send href="{{ page.recruiting.featured_page.full_url }}" colorscheme="{{ site.facebook_colorscheme }}" ref="r{{ current_signup.id }}"></fb:send>
@@ -67,7 +69,7 @@
 	</div>
 
 	<div class="">
-		<h4>Tweet your followers</h4>
+    <h4>{{ t_general_tweet }}</h4>
 			<div class="">
 				<script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
 				<a href="http://twitter.com/share" class="twitter-share-button" data-url="{{ page.recruiting.featured_page.full_url_with_recruiter }}" data-via="{{ site.broadcaster.twitter_login }}" data-related="{{ site.broadcaster.twitter_login }}" data-text="{{ page.recruiting.default_tweet_text }}">Tweet</a>
@@ -75,7 +77,7 @@
 	</div>
 
 	<div class="">
-		<h4>Share on Google+</h4>
+    <h4>{{ t_general_share_plus }}</h4>
 			<div class="">
 				<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 
@@ -84,7 +86,7 @@
 	</div>
 
 	<div class="">
-		<h4>Share with your LinkedIn network</h4>
+    <h4>{{ t_general_share_linkedin }}</h4>
 			<div class="">
 				<script type="text/javascript" src="//platform.linkedin.com/in.js"></script><script type="in/share" data-url="{{ page.recruiting.featured_page.full_url_with_recruiter }}" data-counter="right"></script>
 			</div>
@@ -93,7 +95,7 @@
 	<script type="text/javascript" src="//platform.tumblr.com/v1/share.js"></script>
 
 	<div class="">
-		<h4>You can also post to tumblr, reddit, and digg.</h4>
+    <h4>{{ t_general_share_other_socials }}</h4>
 			<div class="">
 				<a href="http://www.tumblr.com/share/link?url={{ page.recruiting.featured_page.full_url_with_recruiter | escape }}&name={{ page.recruiting.featured_page.headline | escape }}&description={{ page.recruiting.default_tweet_text | escape }}" title="Post on Tumblr">{{ "tumblr32" | icon }}</a>
 
@@ -117,7 +119,7 @@
 				<div class="stat-box-inner">
 					<div class="stat">{{ request.current_signup.followers_supporters_count }}</div>
 
-					<div class="label">supporters</div>
+          <div class="label">{{ t_general_supporters }}</div>
 				</div> <!-- .stat-box-inner -->
 			</div> <!-- .stat-box -->
 
@@ -126,7 +128,7 @@
 				<div class="stat-box-inner">
 					<div class="stat">{{ request.current_signup.followers_volunteers_count }}</div>
 
-					<div class="label">volunteers</div>
+          <div class="label">{{ t_general_volunteers }}</div>
 				</div> <!-- .stat-box-inner -->
 			</div> <!-- .stat-box -->
 
@@ -134,7 +136,7 @@
 				<div class="stat-box-inner">
 					<div class="stat">{{ request.current_signup.followers_donors_count }}</div>
 
-					<div class="label">donors</div>
+          <div class="label">{{ t_donors }}</div>
 				</div> <!-- .stat-box-inner -->
 			</div> <!-- stat-box -->
 
@@ -143,7 +145,7 @@
 					<div class="stat-box-inner">
 						<div class="stat">{{ request.current_signup.followers_possible_voters_count }}</div>
 
-						<div class="label">could vote</div>
+            <div class="label">{{ t_general_could_vote }}</div>
 					</div> <!-- .stat-box-inner -->
 				</div> <!-- .stat-box -->
 
@@ -151,7 +153,7 @@
 					<div class="stat-box-inner">
 						<div class="stat">{{ request.current_signup.followers_voters_count }}</div>
 			
-						<div class="label">will vote</div>
+            <div class="label">{{ t_general_will_vote }}</div>
 					</div> <!-- .stat-box-inner -->
 				</div> <!-- .stat-box -->
 			{% endif %}
@@ -161,18 +163,18 @@
 	<table class="table table-striped content-list" id="content-list">
 		<thead>
 			<tr>
-				<th>Name</th>
+        <th>{{ t_general_name }}</th>
 				
-				<th><div class="desktop-visible" align="center">Supporter</div></th>
+        <th><div class="desktop-visible" align="center">{{ t_general_supporters }}</div></th>
 				
-				<th><div align="center">Volunteer</div></th>
+        <th><div align="center">{{ t_general_volunteers }}</div></th>
 				
-				<th><div align="center">Donor</div></th>
+        <th><div align="center">{{ t_donors }}</div></th>
 					{% if settings.is_voter? %}
 						
-						<th><div class="desktop-visible" align="center">Could Vote</div></th>
+        <th><div class="desktop-visible" align="center">{{ t_general_could_vote }}</div></th>
 						
-						<th><div class="desktop-visible" align="center">Will Vote</div></th>
+        <th><div class="desktop-visible" align="center">{{ t_general_will_vote }}</div></th>
 					{% endif %}
 			</tr>
 		</thead>
@@ -206,7 +208,7 @@
 			
 			{% if request.current_signup.recruiting_activities.size == 0 %}
 				<div class="">
-					You will be able to see who you've recruited below.
+          {{ t_recruit_who_you_recruited }}
 				</div>
 			{% endif %}
 				<div id="reactions" class="">
@@ -223,7 +225,7 @@
 		</div> <!-- #stream -->
 	{% elsif page.show_stream? %}
 		<div class="">
-			When you sign in, you will be able to see who you've recruited here.
+      {{ t_recruit_who_you_recruited_signed_in }}
 		</div>
 
 	{% endif %}

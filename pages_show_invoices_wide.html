@@ -2,6 +2,8 @@
 
 {% include "headline" %}
 
+{% include "translation_strings" %}
+
 <div id="content" class="invoices">
 
 {% if page.invoice.content.size > 0 %}
@@ -13,7 +15,7 @@
 {% if outstanding_invoices.size == 0 %}
 
 <div class="row-fluid">
-  <div class="span12">You have no outstanding invoices.</div>
+  <div class="span12">{{ t_invoice_no_outstanding }}</div>
 </div>
 
 {% else %}
@@ -24,9 +26,9 @@
 <h4 class="padbottomless">{{ invoice.name }}</h4>
 <table class="table table-striped">
   <tr>
-    <th width="12%">Quantity</th>
-    <th>Name</th>
-    <th class="amount">Amount</th>
+    <th width="12%">{{ t_invoice_quantity }}</th>
+    <th>{{ t_general_name }}</th>
+    <th class="amount">{{ t_amount }}</th>
   </tr>
 
   {% for item in invoice.items %}
@@ -41,7 +43,7 @@
 
   <tr>
     <td colspan="3" class="invoice-total">
-      <span class="label">Total</span> <span class="price-invoice">{{ invoice.amount_due_format }}</span>
+      <span class="label">{{ t_invoice_total }}</span> <span class="price-invoice">{{ invoice.amount_due_format }}</span>
     </td>
   </tr>
 </table>
@@ -62,9 +64,9 @@
     <!-- EXPANDING CONTENT BEGIN -->
     <table class="table table-striped">
       <tr>
-        <th width="12%">Quantity</th>
-        <th>Name</th>
-        <th class="amount">Amount</th>
+        <th width="12%">{{ t_invoice_quantity }}</th>
+        <th>{{ t_general_name }}</th>
+        <th class="amount">{{ t_amount }}</th>
       </tr>
 
       {% for item in invoice.items %}
@@ -84,7 +86,7 @@
 <table class="table">
   <tr>
     <td colspan="3" class="invoice-total">
-      <span class="label">Total</span> <span class="price-invoice">{{ invoice.amount_due_format }}</span>
+      <span class="label">{{ t_invoice_total }}</span> <span class="price-invoice">{{ invoice.amount_due_format }}</span>
     </td>
 </table>
 {% endfor %}
@@ -102,7 +104,7 @@
     {% if page.invoice.merchant_account.is_test_mode? %}
       <div class="row-fluid">
         <div class="span12">
-          <span class="red"><strong>Testing mode:</strong> Transactions will not be processed. Use your regular credit card to test, you will not actually be charged.</span>
+          <span class="red"><strong>{{ t_testingmode }}:</strong>{{ t_transactionsnotprocessed }}</span>
         </div>
       </div>
     {% endif %}
@@ -110,7 +112,7 @@
     {% if outstanding_invoices.size > 1 %}
     <div class="row-fluid">
       <div class="span12">
-        <label for="invoice_payment_invoice_id">Invoice to pay</label>{% collection_select "invoice_id", outstanding_invoices, "id", "name", class:"select" %}
+        <label for="invoice_payment_invoice_id">{{ t_invoice_to_pay }}</label>{% collection_select "invoice_id", outstanding_invoices, "id", "name", class:"select" %}
       </div>
     </div>
     {% else %}
@@ -126,23 +128,23 @@
             <div class="row-fluid">
 
               <div class="span6">
-                <label for="invoice_payment_first_name">First Name</label>{% text_field "first_name", class:"text" %}
+                <label for="invoice_payment_first_name">{{ t_general_first_Name }}</label>{% text_field "first_name", class:"text" %}
               </div>
               <div class="span6">
-                <label for="invoice_payment_last_name">Last Name</label>{% text_field "last_name", class:"text" %}
+                <label for="invoice_payment_last_name">{{ t_general_last_Name }}</label>{% text_field "last_name", class:"text" %}
               </div>
 
             </div>
             <div class="row-fluid">
 
               <div class="span12">
-                <label for="invoice_payment_billing_address_country_code">Country</label>{% collection_select "billing_address.country_code", page.invoice.countries, "code", "name", class:"select" %}
+                <label for="invoice_payment_billing_address_country_code">{{ t_country }}</label>{% collection_select "billing_address.country_code", page.invoice.countries, "code", "name", class:"select" %}
               </div>
 
             </div>
             <div class="row-fluid">
 
-              <div class="span12"><label for="invoice_payment_billing_address_address1">Address</label>
+              <div class="span12"><label for="invoice_payment_billing_address_address1">{{ t_address }}</label>
                 {% text_field "billing_address.address1", class:"text" %}
                 {% text_field "billing_address.address2", class:"text" %}
                 {% text_field "billing_address.address3", class:"text not-us-or-canada" %}
@@ -152,25 +154,25 @@
             <div class="row-fluid">
 
               <div class="span4">
-                <label for="invoice_payment_billing_address_city">City</label>{% text_field "billing_address.city", class:"text" %}
+                <label for="invoice_payment_billing_address_city">{{ t_city }}</label>{% text_field "billing_address.city", class:"text" %}
               </div>
               <div class="span4 us-or-canada us-only">
-                <label for="invoice_payment_billing_address_state">State</label>{% collection_select "billing_address.state", page.invoice.us_states, "code", "name", class:"select" %}
+                <label for="invoice_payment_billing_address_state">{{ t_state }}</label>{% collection_select "billing_address.state", page.invoice.us_states, "code", "name", class:"select" %}
               </div>
               <div class="span4 us-or-canada canada-only">
-                <label for="invoice_payment_billing_address_state">State</label>{% text_field "billing_address.state", class:"text" %}
+                <label for="invoice_payment_billing_address_state">{{ t_state }}</label>{% text_field "billing_address.state", class:"text" %}
               </div>
               <div class="span4">
-                <label for="invoice_payment_billing_address_zip">Postal code</label>{% text_field "billing_address.zip", class:"text" %}
+                <label for="invoice_payment_billing_address_zip">{{ t_postalcode }}</label>{% text_field "billing_address.zip", class:"text" %}
               </div>
 
             </div>
             <div class="row-fluid">
 
-              <div class="span6"><label for="invoice_payment_email">Email</label>{% email_field "email", class:"text" %}
+              <div class="span6"><label for="invoice_payment_email">{{ t_general_email }}</label>{% email_field "email", class:"text" %}
               </div>
               <div class="span6">
-                <label for="invoice_payment_phone">Phone</label>{% text_field "billing_address.phone_number", class:"text" %}
+                <label for="invoice_payment_phone">{{ t_general_phone }}</label>{% text_field "billing_address.phone_number", class:"text" %}
               </div>
 
             </div>
@@ -196,17 +198,17 @@
           {% if page.invoice.merchant_account.is_paypal_express? == false %}
 
           <div class="span6">
-            <label for="invoice_payment_card_number">Credit card number</label>{% text_field "card_number", class:"text" %}
+            <label for="invoice_payment_card_number">{{ t_creditcardnumber }}</label>{% text_field "card_number", class:"text" %}
           </div>
 
           <div class="span6 cc">{{ page.invoice.merchant_account.accepted_card_icons }}</div>
 
           <div class="span3">
-            <label for="invoice_payment_card_expires_on_1i">Expires</label>{{ page.invoice.form_card_expires_on }}
+            <label for="invoice_payment_card_expires_on_1i">{{ t_expires }}</label>{{ page.invoice.form_card_expires_on }}
           </div>
 
           <div class="span3">
-            <label for="invoice_payment_card_verification">Security code (on back)</label>{% text_field "card_verification", class:"text" %}
+            <label for="invoice_payment_card_verification">{{ t_securitycode }}</label>{% text_field "card_verification", class:"text" %}
           </div>
 
           <div class="span6">{% submit_tag "Process Payment", class:"success-button" %}</div>
@@ -233,22 +235,22 @@
 {% if closed_invoices.size > 0 %}
 
 <div class="padbottomless">
-  <h4>Closed invoices</h4>
+  <h4>{{ t_invoice_closed }}</h4>
 </div>
 
 <table class="table table-striped">
   <tr>
-    <th>Invoice</th>
-    <th>Amount</th>
-    <th>Closed on</th>
-    <th>PDF</th>
+    <th>{{ t_invoice }}</th>
+    <th>{{ t_amount }}</th>
+    <th>{{ t_invoice_closed_on }}</th>
+    <th>{{ t_invoice_pdf }}</th>
   </tr>
   {% for invoice in closed_invoices %}
   <tr>
     <td>{{ invoice.name }}</td>
     <td>{{ invoice.amount_with_discount_format }}</td>
     <td>{{ invoice.closed_at | date_to_string }}</td>
-    <td><a href="{{ invoice.pdf_url }}">PDF</a></td>
+    <td><a href="{{ invoice.pdf_url }}">{{ t_invoice_pdf }}</a></td>
   </tr>
   {% endfor %}
 </table>

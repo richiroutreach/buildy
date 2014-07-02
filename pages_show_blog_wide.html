@@ -1,6 +1,8 @@
 <!-- @START pages_show_blog_wide.html -->
 {% include "breadcrumbs" %}
 
+{% include "translation_strings" %}
+
 {% if page.headline.size > 0 and page.blog.is_posting_public? %}
 	<h2 class="headline">{{ page.headline }}</h2>
 {% endif %}
@@ -46,22 +48,22 @@
 				<h3><a href="{{ post.url }}">{{ post.headline }}</a></h3>
 
 				<div class="byline">
-					Posted by {{ post.author.published_name_linked }} &middot; {{ post.published_at | date: '%B %d, %Y %l:%M %p' }}
+          {{ t_posted }} {{ post.author.published_name_linked }} &middot; {{ post.published_at | date: '%B %d, %Y %l:%M %p' }}
 				</div>
 
 				<div class="excerpt">
 					{{ post.blog_post.content }}
 
 					{% if post.blog_post.is_extended? %}
-						<span class='read-more'><a href='{{ post.url }}' class="button sucess small">Read more</a></span>
+          <span class='read-more'><a href='{{ post.url }}' class="button sucess small">{{ t_blog_read_more }}</a></span>
 					{% endif %}
 				</div>
 
 				<a href="{{ post.url }}#addreaction" class="button small small-button">
 					{% if post.public_activities_count > 0 %}
-						{{ post.public_activities_count }} reaction{% if post.public_activities_count > 1 %}s{% endif %}
+          {{ post.public_activities_count }} {{ t_reaction }} {% if post.public_activities_count > 1 %}s{% endif %}
 					{% else %}
-						Add your reaction
+          {{ t_addreact }}
 					{% endif %}
 				</a>
 

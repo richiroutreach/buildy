@@ -1,4 +1,6 @@
 <!-- @START pages_show_suggestion_box.html -->
+{% include 'translation_strings' %}
+
 {% include "breadcrumbs" %}
 
 {% if page.headline.size > 0 %}
@@ -28,7 +30,7 @@
     						</div> <!-- .padtopmore -->
     
     						{% if page.suggestion_box.is_image? %}
-    							<p><label for="suggestion_page_image">Upload a picture ({% if page.suggestion_box.require_image? == false %}optional, {% endif %}600px wide)</label><br/>{% file_field "image", class:"file" %}</p>
+              <p><label for="suggestion_page_image">{{ t_pet_upload_pic }} {% if page.suggestion_box.require_image? == false %}{{ t_general_optional }}, {% endif %}600px {{ t_general_wide }}</label><br/>{% file_field "image", class:"file" %}</p>
     						{% endif %}
     						<div class="padtop">
 							{% submit_tag "Post", class:"submit-button" %}
@@ -47,12 +49,12 @@
 	</div> <!-- padbottom -->
 	<div class="padtopless padbottom">
 		<ul class="tag-list">
-			<li class="{% if request.url_path == page.url or request.url_path == '/' + page.slug %}current{% endif %}"><a href="{{ page.url }}">Most recent</a></li>
-			{% capture alphabetical_url %}/{{ page.slug }}/alphabetical{% endcapture %}
-			<li class="{% if request.url_path == alphabetical_url %}current{% endif %}"><a href="{{ alphabetical_url }}">Alphabetical</a></li>
+      <li class="{% if request.url_path == page.url or request.url_path == '/' + page.slug %}current{% endif %}"><a href="{{ page.url }}">{{ t_general_most_recent }}</a></li>
+      {% capture alphabetical_url %}/{{ page.slug }}/{{ t_general_alphabetical }}{% endcapture %}
+      <li class="{% if request.url_path == alphabetical_url %}current{% endif %}"><a href="{{ alphabetical_url }}">{{ t_general_alphabetical }}</a></li>
 
 			{% for tag_name in page.suggestion_box.tag_names %}
-				{% capture tag_url %}/{{ page.slug }}/tags/{{ tag_name }}{% endcapture %}			  
+      {% capture tag_url %}/{{ page.slug }}/{{ t_general_tags }}/{{ tag_name }}{% endcapture %}			  
 				<li class="{% if request.url_path == tag_url %}current{% endif %}"><a href="{{ tag_url }}">{{ tag_name | capitalize }}</a></li>
 			{% endfor %}
 		</ul>
@@ -71,12 +73,12 @@
 			<div class="page-excerpt" id="suggestion-page-{{ post.id }}">
 				<h3><a href="{{ post.url }}">{{ post.headline }}</a></h3>
 				<div class="byline">
-					Posted by {{ post.author.published_name_linked }} &middot; {{ post.published_at | date: '%B %d, %Y %l:%M %p' }}
+          {{ assign t_posted }} {{ post.author.published_name_linked }} &middot; {{ post.published_at | date: '%B %d, %Y %l:%M %p' }}
 
 					{% if post.show_stream? %}
 
 						{% if post.public_activities_count > 0 %}
-							&middot; <a href="{{ post.url }}#reactions">{{ post.public_activities_count }} reaction{% if post.public_activities_count > 1 %}s{% endif %}</a>
+          &middot; <a href="{{ post.url }}#reactions">{{ post.public_activities_count }} {{ assign t_reaction }}{% if post.public_activities_count > 1 %}s{% endif %}</a>
 						{% endif %}
 					{% endif %}
 				</div> <!-- .byline -->
@@ -93,7 +95,7 @@
 					<div class="answer clearfix">
 						<div>
 							<strong>
-								Official response from {{ post.suggestion.answer_author.published_name_linked }}
+                {{ t_blog_response_from }} {{ post.suggestion.answer_author.published_name_linked }}
 							
 								{% if post.suggestion.is_answer_type? %}
 									{{ post.suggestion.answer_type_html }}
@@ -112,9 +114,9 @@
 				{% endif %}
 
 				{% if post.public_activities_count > 0 %}
-					<a href="{{ post.url }}#addreaction" class="button small-button">{{ post.public_activities_count }} reaction{% if post.public_activities_count > 1 %}s{% endif %}</a>
+    <a href="{{ post.url }}#addreaction" class="button small-button">{{ post.public_activities_count }} {{ t_reaction }}{% if post.public_activities_count > 1 %}s{% endif %}</a>
 				{% else %}
-					<a href="{{ post.url }}#addreaction" class="button small-button">Add your reaction</a>
+    <a href="{{ post.url }}#addreaction" class="button small-button">{{ t_addreact }}</a>
 				{% endif %}
 
 				{{ "Share" | share_button page_id: post.id }}
@@ -130,7 +132,7 @@
 		{% endif %}
 	</div> <!-- .suggestion-box -->
 	<div class="like-page">
-		<strong>Like this page to spread the word</strong>
+    <strong>{{ t_general_like_to_spread_word }}</strong>
 		{% include "like_page" %}
 	</div> <!-- .like-page -->
 </div> <!-- #content -->

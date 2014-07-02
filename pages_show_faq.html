@@ -1,6 +1,8 @@
 <!-- @START pages_show_faq.html -->
 {% include "breadcrumbs" %}
 
+{% include "translation_strings" %}
+
 {% if page.headline.size > 0 %}
 	<h2 class="headline">{{ page.headline }}</h2>
 {% endif %}
@@ -57,7 +59,7 @@
 	{% endif %}
 
 	<div class="like-page">
-		<h3>Was this helpful?</h3>
+    <h3>{{ t_general_helpful }}</h3>
 
 		{% include "like_page" %}
 	</div> <!-- .like-page -->

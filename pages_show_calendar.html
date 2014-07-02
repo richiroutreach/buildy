@@ -2,6 +2,8 @@
 <div class="padcontainer">
 
 {% include "breadcrumbs" %}
+  
+{% include "translation_strings" %}
 
 <div class="content-container">
 	{% include "headline" %}
@@ -19,10 +21,10 @@
 				{% form_for address_change %}
 					<div class="form-wrap">
 						<div class="form">
-							<h4>Find {{ page.calendar.event_name | pluralize | downcase }} near you</h4>
+              <h4>{{ t_calendar_event_near_you  }}</h4>
 							<div class=" ">{% text_field "submitted_address", class:"text", placeholder:"Address or postal code" %}
 								<div class="less distance">
-									<span class="within">within</span>
+                  <span class="within">{{ t_within }}</span>
 					
 									<span class="radio-inline">{{ page.calendar.distance_radio_buttons }}</span>
 								</div> 
@@ -32,7 +34,7 @@
 								{% submit_tag "Search", class:"submit-button" %}
 
 								{% if page.calendar.allow_user_submitted? %}
-									or <a href="{{ page.calendar.new_event_url }}">Host your own</a>
+                {{ t_general_or }} <a href="{{ page.calendar.new_event_url }}">{{ t_event_host_your_own }}</a>
 								{% endif %}
 								<div class="form-submit"></div>
 							</div>
@@ -41,7 +43,7 @@
 
 								{% if page.calendar.events_upcoming_nearby_count > 1 %}
 									<div class="">
-										<strong>Found {{ page.calendar.events_upcoming_nearby_count }} {{ page.calendar.event_name | pluralize | downcase }}.</strong>
+                    <strong>{{ t_found }} {{ page.calendar.events_upcoming_nearby_count }} {{ page.calendar.event_name | pluralize | downcase }}.</strong>
 									</div>
 								{% endif %}
 								<div class=" map-wrap">
@@ -49,17 +51,17 @@
 								</div>
 							{% else %}
 								<div class="">
-									<strong><p>No {{ page.calendar.event_name | pluralize | downcase }} found nearby,</strong> try widening your search</p>
+                  <strong><p>{{ t_general_no }} {{ page.calendar.event_name | pluralize | downcase }} {{ t_trywidening }}</strong> </p>
 
 									{% if page.calendar.allow_user_submitted? %}
-										<p>or maybe</P>
-										<a href="{{ page.calendar.new_event_url }}">host your own</a>
+              <p>{{ t_ormaybe }} </p>
+              <a href="{{ page.calendar.new_event_url }}">{{ t_event_host_your_own }}</a>
 									{% endif %}
 								</div>
 
 								{% if page.calendar.events_upcoming.size > 0 %}
 									<div class="map-wrap ">
-										<div class="showing-all">Showing all {{ page.calendar.events_upcoming_count }} {{ page.calendar.event_name | pluralize | downcase }} instead.</div>
+                    <div class="showing-all">{{ t_Showingall }} {{ page.calendar.events_upcoming_count }} {{ page.calendar.event_name | pluralize | downcase }} {{ t_instead }}.</div>
 										{{ page.calendar.events_upcoming_map }}
 									</div> <!-- .map-wrap -->
 								{% endif %}
@@ -107,11 +109,11 @@
 
 				{% if page.calendar.events_upcoming_count == 0 %}
 
-				No {{ page.calendar.event_name | pluralize | downcase }} yet.
+  {{ t_general_no }} {{ page.calendar.event_name | pluralize | downcase }} {{ t_yet }}
 
 					{% if page.calendar.allow_user_submitted? %}
-					You should
-						<a href="{{ page.calendar.new_event_url }}">host your own</a>!
+          {{ t_youshould }}
+  <a href="{{ page.calendar.new_event_url }}">{{ t_hostyourown }}</a>!
 					{% endif %}
 				{% else %}
 
@@ -124,7 +126,7 @@
 
 					{% if page.calendar.allow_user_submitted? %}
 						<div class="">
-							<a class="submit-link button" href="{{ page.calendar.new_event_url }}">Host your own {{ page.calendar.event_name | downcase }}</a>
+              <a class="submit-link button" href="{{ page.calendar.new_event_url }}">{{ t_hostyourown }} {{ page.calendar.event_name | downcase }}</a>
 						</div>
 					{% endif %}
 					<div class="">

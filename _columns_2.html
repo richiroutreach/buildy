@@ -1,5 +1,5 @@
 <!-- @START _columns_2.html -->
-<div class="large-9 columns left-column">
+<div class="large-9 medium-8 columns left-column">
 	{{ content_for_notifications }}
 
 	<div class="content-{{ request.template  | replace: '_', '-' }}">
@@ -7,7 +7,7 @@
 	</div> <!-- .content-{{ request.template  | replace: '_', '-' }} -->
 </div> <!-- .left-column -->
 
-<div class="large-3 columns right-column">
+<div class="large-3 medium-4 columns right-column">
 	{% if request.logged_in? %}
 		{% include "supporter_nav" %}
 	{% else %}

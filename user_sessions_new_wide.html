@@ -1,5 +1,5 @@
 <!-- @START user_sessions_new_wide .html -->
-<div class="form">
+<div class="form row">
 	{% if request.sorta_logged_in? and request.current_signup.has_password? == true %}
 		<h2>Please verify your password</h2>
 	{% elsif request.sorta_logged_in? and request.current_signup.has_password? == false %}

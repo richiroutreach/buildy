@@ -1,0 +1,25 @@
+<!-- @START pages_show_follows_wide.html -->
+{% include "breadcrumbs" %}
+
+{% include "translation_strings" %}
+
+{% if page.headline.size > 0 %}
+<h2 class="headline">{{ page.headline }}</h2>
+{% endif %}
+
+<div id="content">
+  
+  {{ t_general_you_have_followers }}
+  
+  <div class="padtop">
+    {% for follower in request.current_signup.followers %}
+    {% assign signup = follower.follower %}
+    <div class="people-list {% cycle 'odd', 'even' %}">
+      {% include "signup_show" %}
+    </div>
+    {% endfor %}  
+  </div>
+  
+  {{ request.current_signup.followers | paginate prev_label: "&laquo;" next_label: "&raquo;" }}
+  
+</div>

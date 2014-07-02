@@ -1,11 +1,12 @@
 {% include "breadcrumbs" %}
 
+{% include 'translation_strings' %}
+
 {% include "headline" %}
 
 <div id="content">
   
-  You have <strong>{{ request.current_signup.followers_count }}</strong> followers.
-  
+  {{ t_general_you_have_followers }}
   <div class="padtop">
     {% for follower in request.current_signup.followers %}
     {% assign signup = follower.follower %}
